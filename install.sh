@@ -1,5 +1,27 @@
 #!/bin/bash
 
+# ############################## #
+# TO DO 
+# ############################## #
+# automate pref/config files
+# > little snitch
+# > btt 
+# > bartender
+# > dash
+# > hazel
+# > iterm
+# > sublime
+# > tower
+# > viscosity
+# 
+# important stuff
+# > keys
+# > vagrant+virtual box
+# > work
+
+# ############################## #
+# install arrays
+# ############################## #
 # CASKROOM 
 readonly caskroom_apps=(
   "1password"
@@ -33,6 +55,12 @@ readonly caskroom_apps=(
   "virtualbox"
   "viscosity"
   "xld"
+  # security
+  "blockblock"
+  "knockknock"
+  "taskexplorer"
+  "lockdown"
+  "kextviewr"
 )
 
 readonly url_app_dir="~/Downloads/url_apps"
@@ -43,26 +71,38 @@ readonly url_apps=(
 
 readonly repo_stuff_dir="~/Documents/Repositories"
 readonly repo_stuff=(
+  # themes
   "https://github.com/dracula/sublime"
   "https://github.com/dracula/alfred"
   "https://github.com/dracula/iterm"
   "https://github.com/dracula/slack"
   "https://github.com/Miw0/sodareloaded-theme"
+  # config
   "/Users/<user>/Library/Application Support/Sublime Text 3/Installed Packages/Package Control.sublime-package"
   "https://packagecontrol.io/installation"
+  # security
+  "https://bitbucket.org/objective-see/deploy/downloads/RansomWhere_1.1.0.zip"
+  "https://bitbucket.org/objective-see/deploy/downloads/OverSight_1.0.0.zip"
+  "https://bitbucket.org/objective-see/deploy/downloads/DHS_1.3.1.zip"
+  "https://bitbucket.org/objective-see/deploy/downloads/WhatsYourSign_1.2.1.zip"
 )
 
 
 # APP STORE
 # Haskell
 # Keynote
+# Pages
+# Numbers
 # Patterns
 # Pixelmator
 # Reeder
 # Wunderlist
+# Twitter
 
 
-# INIT
+# ############################## #
+# init homebrew
+# ############################## #
 # INSTALL HOMEBREW
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
@@ -70,7 +110,9 @@ readonly repo_stuff=(
 brew tap caskroom/cask
 
 
-
+# ############################## #
+# do the installations
+# ############################## #
 # INSTALLATIONS
 for i in "${caskroom_apps[@]}"
 do
