@@ -22,7 +22,11 @@
 # ############################## #
 # install arrays
 # ############################## #
-# CASKROOM 
+readonly homebrew_apps=(
+  "zsh"
+  "git"
+)
+
 readonly caskroom_apps=(
   "1password"
   "alfred"
@@ -31,6 +35,7 @@ readonly caskroom_apps=(
   "bee"
   "bettertouchtool"
   "boxcryptor"
+  "choosy"
   "cocoarestclient"
   "cryptomator"
   "cyberduck"
@@ -114,6 +119,12 @@ brew tap caskroom/cask
 # do the installations
 # ############################## #
 # INSTALLATIONS
+for i in "${homebrew_apps[@]}"
+do
+  brew install $i
+done
+
+
 for i in "${caskroom_apps[@]}"
 do
   brew cask install $i
@@ -129,3 +140,7 @@ done
 
 
 mkdir -p "$repo_stuff_dir"
+for i in "${repo_stuff[@]}"
+do
+  git clone "$repo_stuff" -C "$repo_stuff_dir"
+done
