@@ -61,11 +61,11 @@ readonly caskroom_apps=(
   "viscosity"
   "xld"
   # security
-  "blockblock"
-  "knockknock"
-  "taskexplorer"
-  "lockdown"
-  "kextviewr"
+  # "blockblock"
+  # "knockknock"
+  # "taskexplorer"
+  # "lockdown"
+  # "kextviewr"
 )
 
 readonly url_app_dir="~/Downloads/url_apps"
@@ -82,17 +82,26 @@ readonly repo_stuff=(
   "https://github.com/dracula/iterm"
   "https://github.com/dracula/slack"
   "https://github.com/Miw0/sodareloaded-theme"
-  # config
-  "/Users/<user>/Library/Application Support/Sublime Text 3/Installed Packages/Package Control.sublime-package"
-  "https://packagecontrol.io/installation"
   # security
   "https://bitbucket.org/objective-see/deploy/downloads/RansomWhere_1.1.0.zip"
   "https://bitbucket.org/objective-see/deploy/downloads/OverSight_1.0.0.zip"
   "https://bitbucket.org/objective-see/deploy/downloads/DHS_1.3.1.zip"
   "https://bitbucket.org/objective-see/deploy/downloads/WhatsYourSign_1.2.1.zip"
 )
+readonly repo_names=(
+  # themes
+  "sublime_dracula_theme"
+  "alfred_dracula_theme"
+  "iterm_dracula_theme"
+  "sublime_soda_reloaded_theme"
+  # security
+  # "ransom_where"
+  # "oversight"
+  # "dhs"
+  # "whats_your_sign"
+)
 
-
+  # "/Users/<user>/Library/Application Support/Sublime Text 3/Installed Packages/Package Control.sublime-package"
 # APP STORE
 # Haskell
 # Keynote
@@ -104,6 +113,9 @@ readonly repo_stuff=(
 # Wunderlist
 # Twitter
 
+
+# OTHER STUFF
+# little flock
 
 # ############################## #
 # init homebrew
@@ -139,8 +151,11 @@ done
 
 
 
-mkdir -p "$repo_stuff_dir"
-for i in "${repo_stuff[@]}"
-do
-  git clone "$repo_stuff" -C "$repo_stuff_dir"
-done
+# mkdir -p "$repo_stuff_dir"
+# for i in "${repo_stuff[@]}"
+# do
+#   # git clone "$repo_stuff" "$repo_stuff_dir"
+#   git init
+#   git remote add origin "$i"
+#   git pull origin master
+# done
