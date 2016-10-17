@@ -81,6 +81,7 @@ readonly repo_stuff=(
   "https://github.com/dracula/alfred"
   "https://github.com/dracula/iterm"
   "https://github.com/dracula/slack"
+  "https://github.com/dracula/zsh.git"
   "https://github.com/Miw0/sodareloaded-theme"
   # security
   "https://bitbucket.org/objective-see/deploy/downloads/RansomWhere_1.1.0.zip"
@@ -159,3 +160,23 @@ done
 #   git remote add origin "$i"
 #   git pull origin master
 # done
+
+
+
+# ll alias 
+echo "alias ll='ls -lGaf'" >> ~/.bash_profile
+
+# install oh-my-zsh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
+
+# set dracula theme for zsh
+$DRACULA_THEME=""
+$OH_MY_ZSH="~/.oh-my-zsh/themes"
+ ln -s $DRACULA_THEME/zsh/dracula.zsh-theme $OH_MY_ZSH/themes/dracula.zsh-theme
+
+
+
+
+
+ 
