@@ -56,17 +56,21 @@ readonly caskroom_apps=(
   "virtualbox"
   "viscosity"
   "xld"
+  "cheatsheet"
+  "transmission"
   # security/privacy
   "micro-snitch"
   "little-snitch"
+  "little-flocker"
   "boxcryptor"
   "gpgtools"
   "torbrowser"
-  # "blockblock"
-  # "knockknock"
+  "blockblock"
+  "knockknock"
   # "taskexplorer"
   # "lockdown"
   # "kextviewr"
+  "glimmerblocker"
 )
 
 readonly url_app_dir="~/Downloads/url_apps"
@@ -117,7 +121,7 @@ readonly repo_names=(
 
 
 # OTHER STUFF
-# little flock
+# little flocker
 
 # ############################## #
 # init homebrew
