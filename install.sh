@@ -70,7 +70,8 @@ readonly caskroom_apps=(
   # "taskexplorer"
   # "lockdown"
   # "kextviewr"
-  "glimmerblocker"
+  "dnscrypt"
+  "security-growler"
 )
 
 readonly url_app_dir="~/Downloads/url_apps"
@@ -118,10 +119,9 @@ readonly repo_names=(
 # Reeder
 # Wunderlist
 # Twitter
+# 1Blocker
 
 
-# OTHER STUFF
-# little flocker
 
 # ############################## #
 # init homebrew
