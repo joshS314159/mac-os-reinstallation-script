@@ -25,6 +25,7 @@
 readonly homebrew_apps=(
   "zsh"
   "git"
+  "mas"     #mac app store 
 )
 
 readonly caskroom_apps=(
@@ -46,8 +47,8 @@ readonly caskroom_apps=(
   "iterm2"
   "kaleidoscope"
   "keybase"
-  "logitech-control-center"
-  "logitech-unifying"
+  # "logitech-control-center"
+  # "logitech-unifying"
   "paw"
   "slack"
   "sublime-text"
@@ -56,7 +57,7 @@ readonly caskroom_apps=(
   "virtualbox"
   "viscosity"
   "xld"
-  "cheatsheet"
+  # "cheatsheet"
   "transmission"
   # security/privacy
   "micro-snitch"
@@ -72,14 +73,30 @@ readonly caskroom_apps=(
   # "kextviewr"
   "dnscrypt"
   "security-growler"
+  "santa"
+)
+
+readonly do_mas_apps_manually=true
+readonly mas_apps=(
+  "Haskell"
+  "Keynote"
+  "Pages"
+  "Numbers"
+  "Patterns"
+  "Pixelmator"
+  "Reeder"
+  "Wunderlist"
+  "Twitter"
+  "1Blocker"
 )
 
 readonly url_app_dir="~/Downloads/url_apps"
 readonly url_apps=(
-  "https://pqrs.org/latest/karabiner-elements-latest.dmg"
+  # "https://pqrs.org/latest/karabiner-elements-latest.dmg"
   "http://appldnld.apple.com/STP/031-85776-20161012-4FE1F068-8FE4-11E6-9739-60687FA31755/SafariTechnologyPreview.dmg"
 )
 
+readonly do_repos_stuff_manually=true
 readonly repo_stuff_dir="~/Documents/Repositories"
 readonly repo_stuff=(
   # themes
@@ -89,37 +106,15 @@ readonly repo_stuff=(
   "https://github.com/dracula/slack"
   "https://github.com/dracula/zsh.git"
   "https://github.com/Miw0/sodareloaded-theme"
-  # security
+  # security/privacy
   "https://bitbucket.org/objective-see/deploy/downloads/RansomWhere_1.1.0.zip"
   "https://bitbucket.org/objective-see/deploy/downloads/OverSight_1.0.0.zip"
   "https://bitbucket.org/objective-see/deploy/downloads/DHS_1.3.1.zip"
   "https://bitbucket.org/objective-see/deploy/downloads/WhatsYourSign_1.2.1.zip"
 )
-readonly repo_names=(
-  # themes
-  "sublime_dracula_theme"
-  "alfred_dracula_theme"
-  "iterm_dracula_theme"
-  "sublime_soda_reloaded_theme"
-  # security
-  # "ransom_where"
-  # "oversight"
-  # "dhs"
-  # "whats_your_sign"
-)
 
-  # "/Users/<user>/Library/Application Support/Sublime Text 3/Installed Packages/Package Control.sublime-package"
-# APP STORE
-# Haskell
-# Keynote
-# Pages
-# Numbers
-# Patterns
-# Pixelmator
-# Reeder
-# Wunderlist
-# Twitter
-# 1Blocker
+
+# "/Users/<user>/Library/Application Support/Sublime Text 3/Installed Packages/Package Control.sublime-package"
 
 
 
@@ -136,19 +131,29 @@ brew tap caskroom/cask
 # ############################## #
 # do the installations
 # ############################## #
-# INSTALLATIONS
+# homebrew (always do this first)
 for i in "${homebrew_apps[@]}"
 do
   brew install $i
 done
 
-
+# caskroom (mac gui apps)
 for i in "${caskroom_apps[@]}"
 do
   brew cask install $i
 done
 
+# >> do this manually
+# mas (mac gui apps from mas)
+if [ "$do_mas_apps_manually" = false ]; then
+  for i in "${mas_apps[@]}"
+  do
+    app_id=$(mas search "$i" | head -1 | awk '{ print $1 }')
+    mas install "$app_id"
+  done
+fi
 
+# apps at urls
 mkdir -p "$url_app_dir"
 for i in "${url_apps[@]}"
 do
@@ -156,18 +161,26 @@ do
 done
 
 
+# >> do this manually
+# apps/files at repos
+if [ "$do_repos_stuff_manually" = false ]; then
+  mkdir -p "$repo_stuff_dir"
+  for i in "${repo_stuff[@]}"
+  do
+    # git clone "$repo_stuff" "$repo_stuff_dir"
+    git init
+    git remote add origin "$i"
+    git pull origin master
+  done
+fi
 
-# mkdir -p "$repo_stuff_dir"
-# for i in "${repo_stuff[@]}"
-# do
-#   # git clone "$repo_stuff" "$repo_stuff_dir"
-#   git init
-#   git remote add origin "$i"
-#   git pull origin master
-# done
 
 
 
+
+# ############################## #
+# other setup
+# ############################## #
 # ll alias 
 echo "alias ll='ls -lGaf'" >> ~/.bash_profile
 
@@ -178,7 +191,7 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/mas
 # set dracula theme for zsh
 $DRACULA_THEME=""
 $OH_MY_ZSH="~/.oh-my-zsh/themes"
- ln -s $DRACULA_THEME/zsh/dracula.zsh-theme $OH_MY_ZSH/themes/dracula.zsh-theme
+ln -s $DRACULA_THEME/zsh/dracula.zsh-theme $OH_MY_ZSH/themes/dracula.zsh-theme
 
 
 
