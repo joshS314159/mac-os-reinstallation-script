@@ -23,12 +23,14 @@
 # install arrays
 # ############################## #
 readonly homebrew_apps=(
+  "screenfetch"
   "zsh"
   "git"
   "mas"     #mac app store 
 )
 
 readonly caskroom_apps=(
+  "squire"
   "1password"
   "alfred"
   "appcleaner"
