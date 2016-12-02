@@ -91,6 +91,7 @@ readonly mas_apps=(
   "Twitter"
   "1Blocker"
   "Amphetamine"
+  "Textual"
 )
 
 readonly url_app_dir="~/Downloads/url_apps"
