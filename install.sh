@@ -26,7 +26,8 @@ readonly homebrew_apps=(
   "screenfetch"
   "zsh"
   "git"
-  "mas"     #mac app store 
+  "mas"     #mac app store
+  "mackup"  #backup prefs
 )
 
 readonly caskroom_apps=(
