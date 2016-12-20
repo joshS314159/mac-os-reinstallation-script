@@ -93,6 +93,7 @@ readonly mas_apps=(
   "1Blocker"
   "Amphetamine"
   "Textual"
+  "WiFi Explorer"
 )
 
 readonly url_app_dir="~/Downloads/url_apps"
