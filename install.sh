@@ -50,33 +50,28 @@ readonly caskroom_apps=(
   "iterm2"
   "kaleidoscope"
   "keybase"
-  # "logitech-control-center"
-  # "logitech-unifying"
   "paw"
-  "slack"
   "sublime-text"
   "tower"
   "vagrant"
   "virtualbox"
   "viscosity"
   "xld"
-  # "cheatsheet"
   "transmission"
   # security/privacy
-  "micro-snitch"
   "little-snitch"
   "little-flocker"
   "boxcryptor"
-  "gpgtools"
   "torbrowser"
   "blockblock"
   "knockknock"
-  # "taskexplorer"
-  # "lockdown"
-  # "kextviewr"
+  "taskexplorer"
+  "kextviewr"
   "dnscrypt"
   "security-growler"
   "santa"
+  "ransomwhere"
+  "dhs"
 )
 
 readonly do_mas_apps_manually=true
@@ -94,6 +89,10 @@ readonly mas_apps=(
   "Amphetamine"
   "Textual"
   "WiFi Explorer"
+  "Unclutter"
+  "Deliveries"
+  "Home Inventory"
+  "Slack"
 )
 
 readonly url_app_dir="~/Downloads/url_apps"
@@ -112,11 +111,6 @@ readonly repo_stuff=(
   "https://github.com/dracula/slack"
   "https://github.com/dracula/zsh.git"
   "https://github.com/Miw0/sodareloaded-theme"
-  # security/privacy
-  "https://bitbucket.org/objective-see/deploy/downloads/RansomWhere_1.1.0.zip"
-  "https://bitbucket.org/objective-see/deploy/downloads/OverSight_1.0.0.zip"
-  "https://bitbucket.org/objective-see/deploy/downloads/DHS_1.3.1.zip"
-  "https://bitbucket.org/objective-see/deploy/downloads/WhatsYourSign_1.2.1.zip"
 )
 
 
