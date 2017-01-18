@@ -18,6 +18,7 @@
 # > keys
 # > vagrant+virtual box
 # > work
+# "/Users/<user>/Library/Application Support/Sublime Text 3/Installed Packages/Package Control.sublime-package"
 
 # ############################## #
 # install arrays
@@ -36,15 +37,26 @@ readonly caskroom_apps=(
     "alfred"
     "appcleaner"
     "bartender"
+    #bbedit
     "bee"
     "bettertouchtool"
+    "Caskroom/cask/coderunner"
+    "Caskroom/cask/etcher"
+    "Caskroom/cask/firefox"
+    "Caskroom/cask/onyx"
+    "Caskroom/cask/pdfpen"
+    "Caskroom/cask/resilio-sync"
+    "Caskroom/cask/textmate"
     "choosy"
+    "chromium"
     "cocoarestclient"
     "cryptomator"
     "cyberduck"
     "dash"
+    "dnscrypt"
     "dropbox"
     "flux"
+    "gitup"
     "hazel"
     "iterm2"
     "kaleidoscope"
@@ -52,6 +64,7 @@ readonly caskroom_apps=(
     "mplayerx"
     "paw"
     "sublime-text"
+    "torbrowser"
     "tower"
     "transmission"
     "vagrant"
@@ -66,6 +79,7 @@ readonly caskroom_security_apps=(
     "dhs"
     "dnscrypt"
     "kextviewr"
+    "keybase"
     "knockknock"
     "little-flocker"
     "little-snitch"
@@ -74,34 +88,36 @@ readonly caskroom_security_apps=(
     "santa"
     "security-growler"
     "taskexplorer"
-    "torbrowser"
 )
 
 readonly do_mas_apps_manually=true
 readonly mas_apps=(
-    "1Blocker"
-    "Amphetamine"
-    "Deliveries"
-    "Haskell"
-    "Home Inventory"
-    "Keynote"
-    "Numbers"
-    "Pages"
-    "Patterns"
-    "Pixelmator"
-    "Reeder"
-    "Slack"
-    "Textual"
-    "Twitter"
-    "Unclutter"
-    "WiFi Explorer"
-    "Wunderlist"
+    "1107421413" #"1Blocker"
+    "937984704" #"Amphetamine"
+    "1035236694" #"commander-one"
+    "924726344" #"Deliveries"
+    "841285201" #"Haskell"
+    "413564952" #"Home Inventory"
+    "409183694" #"Keynote"
+    "409203825" #"Numbers"
+    "409201541" #"Pages"
+    "429449079" #"Patterns"
+    "407963104" #"Pixelmator"
+    "880001334" #"Reeder"
+    "803453959" #"Slack"
+    "896450579" #"Textual"
+    "425424353" #"The Unarchiver"
+    "409789998" #"Twitter"
+    "577085396" #"Unclutter"
+    "494803304" #"WiFi Explorer"
+    "410628904" #"Wunderlist"
 )
 
 readonly url_app_dir="~/Downloads/url_apps"
 readonly url_apps=(
   # "https://pqrs.org/latest/karabiner-elements-latest.dmg"
   "http://appldnld.apple.com/STP/031-85776-20161012-4FE1F068-8FE4-11E6-9739-60687FA31755/SafariTechnologyPreview.dmg"
+  "http://www.fujitsu.com/global/support/products/computing/peripheral/scanners/scansnap/software/s1300m-setup.html"
 )
 
 readonly do_repos_stuff_manually=true
@@ -115,9 +131,6 @@ readonly repo_stuff=(
   "https://github.com/dracula/zsh.git"
   "https://github.com/Miw0/sodareloaded-theme"
 )
-
-
-# "/Users/<user>/Library/Application Support/Sublime Text 3/Installed Packages/Package Control.sublime-package"
 
 
 
@@ -164,15 +177,12 @@ f_install_cask_apps(){
 
 
 f_install_mas_apps(){
-    # >> do this manually
     # mas (mac gui apps from mas)
-    if [ "$do_mas_apps_manually" = false ]; then
       for i in "${mas_apps[@]}"
       do
         app_id=$(mas search "$i" | head -1 | awk '{ print $1 }')
         mas install "$app_id"
       done
-    fi
 }
 
 
