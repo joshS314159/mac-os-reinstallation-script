@@ -26,8 +26,9 @@ readonly homebrew_apps=(
   "screenfetch"
   "zsh"
   "git"
-  "mas"     #mac app store
-  "mackup"  #backup prefs
+  "mas"           #mac app store
+  "mackup"        #backup prefs
+  "sudolikeaboss" #use 1password in iterm
 )
 
 readonly caskroom_apps=(
@@ -45,7 +46,7 @@ readonly caskroom_apps=(
   "dash"
   "dropbox"
   "flux"
-  "fork"
+  # "fork"
   "hazel"
   "iterm2"
   "kaleidoscope"
@@ -58,6 +59,7 @@ readonly caskroom_apps=(
   "viscosity"
   "xld"
   "transmission"
+  "mplayerx"
   # security/privacy
   "little-snitch"
   "little-flocker"
@@ -72,6 +74,7 @@ readonly caskroom_apps=(
   "santa"
   "ransomwhere"
   "dhs"
+  "oversight"
 )
 
 readonly do_mas_apps_manually=true
@@ -118,81 +121,114 @@ readonly repo_stuff=(
 
 
 
-# ############################## #
-# init homebrew
-# ############################## #
-# INSTALL HOMEBREW
-/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
-# INSTALL CASKROOM
-brew tap caskroom/cask
+f_init_homebrew(){
+    # ############################## #
+    # init homebrew
+    # ############################## #
+    # INSTALL HOMEBREW
+    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
+    # TAP CASKROOM
+    brew tap caskroom/cask
 
-# ############################## #
-# do the installations
-# ############################## #
-# homebrew (always do this first)
-for i in "${homebrew_apps[@]}"
-do
-  brew install $i
-done
-
-# caskroom (mac gui apps)
-for i in "${caskroom_apps[@]}"
-do
-  brew cask install $i
-done
-
-# >> do this manually
-# mas (mac gui apps from mas)
-if [ "$do_mas_apps_manually" = false ]; then
-  for i in "${mas_apps[@]}"
-  do
-    app_id=$(mas search "$i" | head -1 | awk '{ print $1 }')
-    mas install "$app_id"
-  done
-fi
-
-# apps at urls
-mkdir -p "$url_app_dir"
-for i in "${url_apps[@]}"
-do
-  curl $i > "$url_app_dir"
-done
+    #TAP SUDOLIKEABOSS
+    brew tap ravenac95/sudolikeaboss
+}
 
 
-# >> do this manually
-# apps/files at repos
-if [ "$do_repos_stuff_manually" = false ]; then
-  mkdir -p "$repo_stuff_dir"
-  for i in "${repo_stuff[@]}"
-  do
-    # git clone "$repo_stuff" "$repo_stuff_dir"
-    git init
-    git remote add origin "$i"
-    git pull origin master
-  done
-fi
+f_install_brew_apps(){
+    # ############################## #
+    # do the installations
+    # ############################## #
+    # homebrew (always do this first)
+    for i in "${homebrew_apps[@]}"
+    do
+      brew install $i
+    done
+}
+
+
+f_install_cask_apps(){
+    # caskroom (mac gui apps)
+    for i in "${caskroom_apps[@]}"
+    do
+      brew cask install $i
+    done
+}
+
+
+f_install_mas_apps(){
+    # >> do this manually
+    # mas (mac gui apps from mas)
+    if [ "$do_mas_apps_manually" = false ]; then
+      for i in "${mas_apps[@]}"
+      do
+        app_id=$(mas search "$i" | head -1 | awk '{ print $1 }')
+        mas install "$app_id"
+      done
+    fi
+}
+
+
+f_install_url_apps(){
+    # apps at urls
+    mkdir -p "$url_app_dir"
+    for i in "${url_apps[@]}"
+    do
+      curl $i > "$url_app_dir"
+    done
+    
+}
+
+f_install_repo_apps(){
+    # >> do this manually
+    # apps/files at repos
+    if [ "$do_repos_stuff_manually" = false ]; then
+      mkdir -p "$repo_stuff_dir"
+      for i in "${repo_stuff[@]}"
+      do
+        # git clone "$repo_stuff" "$repo_stuff_dir"
+        git init
+        git remote add origin "$i"
+        git pull origin master
+      done
+    fi
+    
+}
 
 
 
 
+f_cli_init(){
+    # ############################## #
+    # other setup
+    # ############################## #
+    # ll alias 
+    echo "alias ll='ls -lGaf'" >> ~/.bash_profile
 
-# ############################## #
-# other setup
-# ############################## #
-# ll alias 
-echo "alias ll='ls -lGaf'" >> ~/.bash_profile
-
-# install oh-my-zsh
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+    # install oh-my-zsh
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
 
-# set dracula theme for zsh
-$DRACULA_THEME=""
-$OH_MY_ZSH="~/.oh-my-zsh/themes"
-ln -s $DRACULA_THEME/zsh/dracula.zsh-theme $OH_MY_ZSH/themes/dracula.zsh-theme
+    # set dracula theme for zsh
+    $DRACULA_THEME=""
+    $OH_MY_ZSH="~/.oh-my-zsh/themes"
+    ln -s $DRACULA_THEME/zsh/dracula.zsh-theme $OH_MY_ZSH/themes/dracula.zsh-theme
+}
 
+
+
+f_main(){
+    f_init_homebrew
+    f_install_brew_apps
+    f_install_cask_apps
+    f_install_mas_apps
+    f_install_url_apps
+    f_install_repo_apps
+    f_cli_init
+}
+f_main
 
 
 
