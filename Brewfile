@@ -15,6 +15,15 @@ tap 'ravenac95/sudolikeaboss'
 # custom
 # ##################################################
 # ##################################################
+# 
+# cli
+"git"
+"mackup"
+"mas"
+"screenfetch"     
+"sudolikeaboss"  
+"zsh"             
+# cask
 cask '1password'
 cask 'alfred'
 cask 'appcleaner'
@@ -27,26 +36,25 @@ cask 'Caskroom/cask/etcher'
 cask 'Caskroom/cask/firefox'
 cask 'Caskroom/cask/onyx'
 cask 'Caskroom/cask/pdfpen'
-cask 'Caskroom/cask/resilio-sync'
-cask 'Caskroom/cask/textmate'
+# cask 'Caskroom/cask/resilio-sync'
+# cask 'Caskroom/cask/textmate'
 cask 'choosy'
 cask 'cocoarestclient'
 cask 'cryptomator'
 cask 'cyberduck'
 cask 'dash'
-cask 'dropbox'
-cask 'etcher'
+# cask 'dropbox'
+# cask 'etcher'
 cask 'firefox'
 cask 'flux'
 cask 'gitup'
-cask 'google-chrome'
+# cask 'google-chrome'
 cask 'hazel'
 cask 'iterm2'
 cask 'kaleidoscope'
 cask 'mplayerx'
 cask 'onyx'
 cask 'pdfpen'
-cask 'resilio-sync'
 cask 'sublime-text'
 cask 'the-unarchiver'
 cask 'torbrowser'
@@ -56,7 +64,7 @@ cask 'vagrant'
 cask 'virtualbox'
 cask 'viscosity'
 cask 'xld'
-# custom (security)
+# cask (security)
 cask 'blockblock'
 cask 'boxcryptor'
 cask 'dhs'
@@ -72,10 +80,10 @@ cask 'ransomwhere'
 cask 'santa'
 cask 'security-growler'
 cask 'taskexplorer'
-# custom (MAS)
+# cask (MAS)
 mas '1Blocker', id: 1107421413
-mas 'Amphetamine', id: 937984704
-mas 'commander-one', id: 1035236694
+# mas 'Amphetamine', id: 937984704
+# mas 'commander-one', id: 1035236694
 mas 'Deliveries', id: 924726344
 mas 'Haskell', id: 841285201
 mas 'Home Inventory', id: 413564952
