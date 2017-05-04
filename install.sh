@@ -50,6 +50,9 @@ function init_homebrew(){
 
     # TAP HOMEBREW BUNDLER AND INSTALL
     brew tap homebrew/bundle
+
+    # CAT CUSTOM FILE WITH AUTOGEN FILE
+    cat "./BrewfileCustom" >> "Brewfile"
 }
 
 
