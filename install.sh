@@ -22,10 +22,23 @@
 
 
 
+function setup_folder_structure(){
+    mkdir -p "~/Documents/Developer/Repositories/"
+    mkdir -p "~/Documents/Developer/Virtual Machines/"
+    mkdir -p "~/Documents/Developer/Working/"
+    
+    mkdir -p "~/Documents/Developer/Repositories/dracula_themes"
+    
+    mkdir -p "~/Documents/1Password"
+    mkdir -p "~/Documents/DevonThink"
+    mkdir -p "~/Documents/nvAlt2"
+    mkdir -p "~/Documents/ScanSnap Processing"
+    mkdir -p "~/Documents/DevonThink"
+}
+
 declare -r url_app_dir="~/Downloads/url_apps"
 declare -r url_apps=(
   # "https://pqrs.org/latest/karabiner-elements-latest.dmg"
-  "http://appldnld.apple.com/STP/031-85776-20161012-4FE1F068-8FE4-11E6-9739-60687FA31755/SafariTechnologyPreview.dmg"
   "http://www.fujitsu.com/global/support/products/computing/peripheral/scanners/scansnap/software/s1300m-setup.html"
 )
 
