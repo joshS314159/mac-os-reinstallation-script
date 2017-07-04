@@ -1,0 +1,21 @@
+[submodule "themes/dracula/alfred"]
+	path = themes/dracula/alfred
+	url = https://github.com/dracula/alfred
+[submodule "themes/dracula/iterm"]
+	path = themes/dracula/iterm
+	url = https://github.com/dracula/iterm.git
+[submodule "themes/dracula/sublime"]
+	path = themes/dracula/sublime
+	url = https://github.com/dracula/sublime.git
+[submodule "themes/dracula/terminal"]
+	path = themes/dracula/terminal
+	url = https://github.com/dracula/terminal.app.git
+[submodule "themes/dracula/textmate"]
+	path = themes/dracula/textmate
+	url = https://github.com/dracula/textmate.git
+[submodule "themes/dracula/textual"]
+	path = themes/dracula/textual
+	url = https://github.com/dracula/textual.git
+[submodule "themes/dracula/zsh"]
+	path = themes/dracula/zsh
+	url = https://github.com/dracula/zsh.git
