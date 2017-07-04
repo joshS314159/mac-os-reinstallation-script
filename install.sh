@@ -36,6 +36,8 @@ function setup_folder_structure(){
     mkdir -p "~/Documents/DevonThink"
 }
 
+
+
 declare -r url_app_dir="~/Downloads/url_apps"
 declare -r url_apps=(
   # "https://pqrs.org/latest/karabiner-elements-latest.dmg"
