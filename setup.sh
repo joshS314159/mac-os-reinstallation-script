@@ -1,10 +1,12 @@
 #!/bin/bash
 
 
-function index_devonthink(){
+function index_and_sync_devonthink(){
     (
         cd $(pwd)"/support/apple_scripts/"
         osascript "index_devonthink.scpt"
+        
+        osascript "sync_devonthink.scpt"
     )
 }
 
@@ -33,7 +35,7 @@ function backup_arq(){
 
 
 function main(){
-    index_devonthink
+    index_and_sync_devonthink
     
     homebrew_setup
     
