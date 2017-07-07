@@ -1,9 +1,9 @@
 #Clean Install Preparation
 1. Run `setup.sh` in `mac-os-reinstallation-script`
-2. Index applicable folders on DevonThink
+2. <s>Index applicable folders on DevonThink</s>
 2. Run sync'ing
     * 1Password
-    * DevonThink
+    * <s>DevonThink</s>
     * Hazel
 3. Preference backup
     * <s>Run mackup (should handle everything) but...</s>
