@@ -27,13 +27,12 @@ function setup_folder_structure(){
     mkdir -p "~/Documents/Developer/Virtual Machines/"
     mkdir -p "~/Documents/Developer/Working/"
     
-    mkdir -p "~/Documents/Developer/Repositories/dracula_themes"
-    
+    mkdir -p "~/Documents/DevonThink"
+        
     mkdir -p "~/Documents/1Password"
     mkdir -p "~/Documents/DevonThink"
     mkdir -p "~/Documents/nvAlt2"
     mkdir -p "~/Documents/ScanSnap Processing"
-    mkdir -p "~/Documents/DevonThink"
 }
 
 
@@ -47,13 +46,8 @@ declare -r url_apps=(
 declare -r do_repos_stuff_manually=true
 declare -r repo_stuff_dir="~/Documents/Repositories"
 declare -r repo_stuff=(
-  # themes
-  "https://github.com/dracula/sublime"
-  "https://github.com/dracula/alfred"
-  "https://github.com/dracula/iterm"
-  "https://github.com/dracula/slack"
-  "https://github.com/dracula/zsh.git"
-  "https://github.com/Miw0/sodareloaded-theme"
+  # my repo
+  "https://github.com/joshS314159/mac-os-reinstallation-script.git"
 )
 
 
