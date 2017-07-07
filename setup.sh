@@ -1,15 +1,10 @@
 #!/bin/bash
 
 
-function backup_arq(){
+function index_devonthink(){
     (
-        cd "/Applications/Arq.app/Contents/MacOS"
-        
-        # select B2
-        ./Arq backupnow
-        
-        # select local
-        ./Arq backupnow
+        cd $(pwd)"/support/apple_scripts/"
+        osascript "index_devonthink.scpt"
     )
 }
 
@@ -24,11 +19,25 @@ function homebrew_setup(){
 }
 
 
+function backup_arq(){
+    (
+        cd "/Applications/Arq.app/Contents/MacOS"
+        
+        # select B2
+        ./Arq backupnow
+        
+        # select local
+        ./Arq backupnow
+    )
+}
+
+
 function main(){
-    backup_mackup
+    index_devonthink
     
     homebrew_setup
     
+    backup_mackup
     backup_arq
 }
 main
