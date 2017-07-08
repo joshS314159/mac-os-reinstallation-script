@@ -1,0 +1,21 @@
+[submodule "support/resources/themes/dracula/sublime"]
+	path = support/resources/themes/dracula/sublime
+	url = https://github.com/dracula/sublime.git
+[submodule "support/resources/themes/dracula/textmate"]
+	path = support/resources/themes/dracula/textmate
+	url = https://github.com/dracula/textmate.git
+[submodule "support/resources/themes/dracula/iterm"]
+	path = support/resources/themes/dracula/iterm
+	url = https://github.com/dracula/iterm.git
+[submodule "support/resources/themes/dracula/textual"]
+	path = support/resources/themes/dracula/textual
+	url = https://github.com/dracula/textual.git
+[submodule "support/resources/themes/dracula/alfred"]
+	path = support/resources/themes/dracula/alfred
+	url = https://github.com/dracula/alfred
+[submodule "support/resources/themes/dracula/zsh"]
+	path = support/resources/themes/dracula/zsh
+	url = https://github.com/dracula/zsh.git
+[submodule "support/resources/themes/dracula/slack"]
+	path = support/resources/themes/dracula/slack
+	url = https://github.com/dracula/slack.git
