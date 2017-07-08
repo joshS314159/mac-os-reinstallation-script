@@ -1,8 +1,5 @@
-[submodule "themes/dracula/alfred"]
-	path = themes/dracula/alfred
-	url = https://github.com/dracula/alfred
 [submodule "themes/dracula/iterm"]
-	path = themes/dracula/iterm
+	path = support/resources/themes/dracula/iterm
 	url = https://github.com/dracula/iterm.git
 [submodule "themes/dracula/sublime"]
 	path = themes/dracula/sublime
