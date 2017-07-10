@@ -256,6 +256,18 @@ logic::after(){
             bash "mac_os_for_hackers.sh"
         )
     }
+    
+    
+    function clear_dock(){
+        dockutil --remove all #remove all the crap from the dock
+    }
+    
+    
+    function add_desired_apps_to_dock(){
+        dockutil --add "/Applications/DEVONthink Pro.app"
+        dockutil --add "/Applications/Mail.app"
+    }
+    
 
 
     function main(){
@@ -267,6 +279,9 @@ logic::after(){
         install_from_repo
         
         setup_hacker_defaults
+        
+        clear_dock
+        add_desired_apps_to_dock
 
         init_cli
     }
