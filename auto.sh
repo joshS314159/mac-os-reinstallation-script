@@ -8,8 +8,10 @@ set -o pipefail
 #########################
 declare -r FILE_NAME="$0"
 
-declare BEFORE="false"
-declare AFTER="false"
+declare BEFORE=false
+declare AFTER=false
+declare DUMP_HOMEBREW=false
+declare USAGE=false
 
 
 
@@ -17,7 +19,7 @@ declare AFTER="false"
 # PARAMETERS ############
 #########################
 
-args=`getopt abo: $*`
+args=`getopt abdho: $*`
     # you should    not use `getopt abo: "$@"` since that would parse
     # the arguments differently from what the set command below does.
     if [    $? -ne 0 ]; then
@@ -29,23 +31,62 @@ args=`getopt abo: $*`
     # since the exit code from getopt would be shadowed by those    of set,
     # which is zero by definition.
     while :; do
-       case "$1" in
-       -a)
-           AFTER=true
-           shift
-           ;;
-       -b)
-           BEFORE=true
-           shift
-           ;;
-       --)
-           shift; break
-           ;;
-       esac
+        case "$1" in
+           -a)
+               AFTER=true
+               shift
+               ;;
+           -b)
+               BEFORE=true
+               shift
+               ;;
+           -d)
+               DUMP_HOMEBREW=true
+               shift
+               ;;
+           -h)
+               USAGE=true
+               shift
+               ;;
+           --)
+               shift; break
+               ;;
+        esac
     done
 
 declare -r BEFORE
 declare -r AFTER
+declare -r DUMP_HOMEBREW
+declare -r USAGE
+
+
+
+# displays usage information to the user for this script
+function usage(){
+  # http://docopt.org
+  echo "----------------------------------------------------------------------------------------------------"
+  echo "Usage: $PROGRAM ( -a | -b | -d | -h )"
+  echo
+  echo "###### General Options "
+  echo "       -a        AFTER: run with this flag after a new system is installed"
+  echo 
+  echo "       -b        BEFORE: run with this flag before a new system is installed"
+  echo 
+  echo "       -b        DUMP: dump brew data to file"
+  echo 
+  echo "       -h        HELP: displays this usage page"
+  echo
+  echo "----------------------------------------------------------------------------------------------------"
+
+}
+
+
+
+# dumps all installed homebrew stuff into a Brewfile
+function dump_homebrew(){
+    brew bundle dump --force --file="$(pwd)/support/resources/brew/Brewfile"
+}
+
 
 
 
@@ -66,10 +107,7 @@ logic::before(){
     }
 
 
-    # dumps all installed homebrew stuff into a Brewfile
-    function dump_homebrew(){
-        brew bundle dump --force --file="$(pwd)/support/resources/brew/Brewfile"
-    }
+
 
     
     # run arq backup
@@ -239,13 +277,20 @@ logic::after(){
 
 
 
+
+
+
 function main(){
-    if [[ "$BEFORE" == "true" ]]; then
+    if [[ "USAGE" == "true" ]]; then
+        usage
+    elif [[ "$BEFORE" == "true" ]]; then
         logic::before
     elif [[ "$AFTER" == "true" ]]; then
         logic::after
+    elif [[ "$DUMP_HOMEBREW" == "true" ]]; then
+        dump_homebrew
     else
-        echo "bad!"
+        usage
     fi
 }
 
