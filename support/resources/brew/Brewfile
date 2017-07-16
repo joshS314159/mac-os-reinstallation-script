@@ -45,6 +45,7 @@ cask "cyberduck"
 cask "dash"
 cask "devonthink-pro"
 cask "firefox"
+cask "fluid"
 cask "gitup"
 cask "hazel"
 cask "imageoptim"
@@ -60,6 +61,7 @@ cask "mplayerx"
 cask "nvalt"
 cask "onyx"
 cask "pdfpen"
+cask "scansnap-manager-s1300"
 cask "sublime-text"
 cask "taskexplorer"
 cask "textmate"
@@ -77,6 +79,7 @@ mas "Home Inventory", id: 413564952
 mas "Keynote", id: 409183694
 mas "Numbers", id: 409203825
 mas "Pages", id: 409201541
+mas "Parallels Desktop Lite", id: 1085114709
 mas "Patterns", id: 429449079
 mas "Pixelmator", id: 407963104
 mas "Reeder", id: 880001334
