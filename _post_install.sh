@@ -6,13 +6,11 @@ set -o pipefail
 #########################
 # GLOBALS ###############
 #########################
-declare -r FILE_NAME=$(basename $0)
+# declare -r FILE_NAME=$(basename $0)
 declare -r ARGS="$@"
 
-declare -r APPLE_SCRIPTS="./support/scripts/apple_scripts/"
+# declare -r APPLE_SCRIPTS="./support/scripts/apple_scripts/"
 declare -r BASH_SCRIPTS="./support/scripts/bash/"
-
-declare -r do_repos_stuff_manually=true
 
 
 
@@ -51,7 +49,8 @@ function read_parameters() {
         "?") print_usage >&2; exit 1 ;;
       esac
     done
-    shift $(expr $OPTIND - 1) # remove options from positional parameters
+    # shift "$(expr $OPTIND - 1)" # remove options from positional parameters
+    shift "$(( OPTIND - 1 ))" # remove options from positional parameters
 }
 
 
@@ -79,18 +78,18 @@ function print_usage(){
 #######################################################################################################
 #######################################################################################################
 function setup_folder_structure(){
-    mkdir -p "~/Documents/Developer"
+    mkdir -p "$HOME/Documents/Developer"
     
-    mkdir -p "~/Documents/Developer/Repositories/"
-    mkdir -p "~/Documents/Developer/Virtual Machines/"
-    mkdir -p "~/Documents/Developer/Working/"
+    mkdir -p "$HOME/Documents/Developer/Repositories/"
+    mkdir -p "$HOME/Documents/Developer/Virtual Machines/"
+    mkdir -p "$HOME/Documents/Developer/Working/"
 
-    mkdir -p "~/Documents/DevonThink"
+    mkdir -p "$HOME/Documents/DevonThink"
     
-    mkdir -p "~/Documents/1Password"
-    mkdir -p "~/Documents/DevonThink"
-    mkdir -p "~/Documents/nvAlt2"
-    mkdir -p "~/Documents/ScanSnap Processing"
+    mkdir -p "$HOME/Documents/1Password"
+    mkdir -p "$HOME/Documents/DevonThink"
+    mkdir -p "$HOME/Documents/nvAlt2"
+    mkdir -p "$HOME/Documents/ScanSnap Processing"
 }
 
 
@@ -128,7 +127,7 @@ function install_apps_in_brewfile(){
 #######################################################################################################
 #######################################################################################################
 function set_bash_aliases(){
-    echo "alias ll='ls -lGaf'" >> ~/.bash_profile
+    echo "alias ll='ls -lGaf'" >> "$HOME/.bash_profile"
 }
 
 
@@ -138,7 +137,7 @@ function set_bash_aliases(){
 #######################################################################################################
 #######################################################################################################
 function set_zsh_as_default_shell(){
-    chsh -s $(which zsh)
+    chsh -s "$(which zsh)"
 }
 
 
@@ -156,36 +155,11 @@ function install_oh_my_zsh(){
 
 #######################################################################################################
 #######################################################################################################
-# set zsh theme #######################################################################################
-#######################################################################################################
-#######################################################################################################
-function set_zsh_dracula_theme(){
-    local -r DRACULA_THEME="./support/resources/themes/dracula/zsh/dracula.zsh-theme" 
-    local -r OH_MY_ZSH="~/.oh-my-zsh/themes"
-    local -r ZSH_CONFIG="$HOME/.zshrc"
-
-    # link theme
-    ln -s $DRACULA_THEME $OH_MY_ZSH
-    
-    # remove the current ZSH_THEME="<text>" line, if it exists
-    sed -i.bak '/.*ZSH_THEME.*/d' $ZSH_CONFIG
-    
-    # echo dracula theme setting to config file
-    echo 'ZSH_THEME="dracula"' > $ZSH_CONFIG
-}
-
-
-
-
-
-
-#######################################################################################################
-#######################################################################################################
 # set "hacker" defaults ###############################################################################
 #######################################################################################################
 #######################################################################################################
 function setup_hacker_defaults(){
-    (   cd $BASH_SCRIPTS
+    (   cd "$BASH_SCRIPTS" || return
         bash "mac_os_for_hackers.sh"
     )
 }
@@ -221,71 +195,71 @@ function install_dracula::alfred(){
     # https://draculatheme.com/alfred/
     local -r themes_dir="$1"
     
-    (   cd $themes_dir"/alfred"
+    (   cd "$themes_dir/alfred" || return
         open "Dracula.alfredappearance"
     )
 }
 
-function install_dracula::iterm(){
+# function install_dracula::iterm(){
     # https://draculatheme.com/iterm/
-    local -r themes_dir="$1"
+    # local -r themes_dir="$1"
 
     # (   cd $themes_dir"/iterm"
     #     open "Dracula.itermcolors"
     # )
-}
+# }
 
-function install_dracula::slack(){
+# function install_dracula::slack(){
     # https://draculatheme.com/slack/
-    local -r themes_dir="$1"
+    # local -r themes_dir="$1"
 
     # (   cd $themes_dir"/slack"
     #     open "Dracula.alfredappearance"
     # )
-}
+# }
 
-function install_dracula::sublime(){
+# function install_dracula::sublime(){
     # https://draculatheme.com/sublime/
-    local -r themes_dir="$1"
+    # local -r themes_dir="$1"
 
     # (   cd $themes_dir"/sublime"
     #     open "Dracula.tmTheme"
     # )
-}
+# }
 
 function install_dracula::textmate(){
     # https://draculatheme.com/textmate/
-    local -r themes_dir="$1"
+    # local -r themes_dir="$1"
 
-    (   cd $themes_dir"/textmate"
+    (   cd "$themes_dir/textmate" || return
         open "Dracula.tmTheme"
     )
 }
 
-function install_dracula::textual(){
+# function install_dracula::textual(){
     # https://draculatheme.com/textual/
-    local -r themes_dir="$1"
+    # local -r themes_dir="$1"
 
     # (   cd $themes_dir"/textual"
     #     open "Dracula.alfredappearance"
     # )
-}
+# }
 
 function install_dracula::zsh(){
     # https://draculatheme.com/zsh/
     local -r themes_dir="$1"
-    local -r DRACULA_THEME="$themes_dir/zsh/dracula.zsh-theme" 
-    local -r OH_MY_ZSH="~/.oh-my-zsh/themes"
-    local -r ZSH_CONFIG="$HOME/.zshrc"
+    local -r dracula_theme="$themes_dir/zsh/dracula.zsh-theme" 
+    local -r oh_my_zsh="$HOME/.oh-my-zsh/themes"
+    local -r zsh_config="$HOME/.zshrc"
 
     # link theme
-    ln -s $DRACULA_THEME $OH_MY_ZSH
+    ln -s "$dracula_theme" "$oh_my_zsh"
     
     # remove the current ZSH_THEME="<text>" line, if it exists
-    sed -i.bak '/.*ZSH_THEME.*/d' $ZSH_CONFIG
+    sed -i.bak '/.*ZSH_THEME.*/d' "$zsh_config"
     
     # append dracula theme setting to config file
-    echo 'ZSH_THEME="dracula"' >> $ZSH_CONFIG
+    echo 'ZSH_THEME="dracula"' >> "$zsh_config"
 }
 
 
@@ -293,13 +267,13 @@ function install_dracula::zsh(){
 function install_dracula(){
     local -r themes_dir="./support/resources/themes/dracula"
     
-    install_dracula::alfred $themes_dir
+    install_dracula::alfred "$themes_dir"
     # install_dracula::iterm $themes_dir
     # install_dracula::slack $themes_dir
     # install_dracula::sublime $themes_dir
-    install_dracula::textmate $themes_dir
+    install_dracula::textmate "$themes_dir"
     # install_dracula::textual $themes_dir
-    install_dracula::zsh $themes_dir
+    install_dracula::zsh "$themes_dir"
     
      
 }
@@ -308,7 +282,7 @@ function install_dracula(){
 
 function main(){
     
-    read_parameters $ARGS
+    read_parameters "$ARGS"
 
     # setup_folder_structure
     # install_homebrew
