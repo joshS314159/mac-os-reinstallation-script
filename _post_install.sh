@@ -284,8 +284,8 @@ function install_dracula::zsh(){
     # remove the current ZSH_THEME="<text>" line, if it exists
     sed -i.bak '/.*ZSH_THEME.*/d' $ZSH_CONFIG
     
-    # echo dracula theme setting to config file
-    echo 'ZSH_THEME="dracula"' > $ZSH_CONFIG
+    # append dracula theme setting to config file
+    echo 'ZSH_THEME="dracula"' >> $ZSH_CONFIG
 }
 
 
