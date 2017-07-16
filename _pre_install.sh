@@ -6,14 +6,13 @@ set -o pipefail
 #########################
 # GLOBALS ###############
 #########################
-declare -r FILE_NAME="$0"
-declare -r FILE_NAME=$(basename $0)
+# declare -r FILE_NAME="$0"
+# declare -r FILE_NAME=$(basename $0)
 declare -r ARGS="$@"
 
 declare -r APPLE_SCRIPTS="./support/scripts/apple_scripts/"
-declare -r BASH_SCRIPTS="./support/scripts/bash/"
+# declare -r BASH_SCRIPTS="./support/scripts/bash/"
 
-declare -r do_repos_stuff_manually=true
 
 
 
@@ -51,7 +50,8 @@ function read_parameters() {
         "?") print_usage >&2; exit 1 ;;
       esac
     done
-    shift $(expr $OPTIND - 1) # remove options from positional parameters
+    # shift $(expr $OPTIND - 1) # remove options from positional parameters
+    shift "$(( OPTIND - 1 ))" # remove options from positional parameters
 }
 
 
@@ -92,7 +92,7 @@ function dump_homebrew(){
 #######################################################################################################
 
 function index_and_sync_devonthink(){
-    (   cd $APPLE_SCRIPTS
+    (   cd "$APPLE_SCRIPTS" || return
         osascript "index_devonthink.scpt"
         osascript "sync_devonthink.scpt"
     )
@@ -115,7 +115,7 @@ function backup_mackup(){
 #######################################################################################################
 #######################################################################################################
 function backup_arq(){
-    (   cd "/Applications/Arq.app/Contents/MacOS"
+    (   cd "/Applications/Arq.app/Contents/MacOS" || return
     
         # select B2
         ./Arq backupnow
@@ -132,7 +132,7 @@ function backup_arq(){
 #######################################################################################################
 #######################################################################################################
 function main(){
-    read_parameters $ARGS
+    read_parameters "$ARGS"
     
     index_and_sync_devonthink
     dump_homebrew
