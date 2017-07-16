@@ -211,6 +211,100 @@ function add_desired_apps_to_dock(){
 }
 
 
+#######################################################################################################
+#######################################################################################################
+# install dracula themes ##############################################################################
+#######################################################################################################
+#######################################################################################################
+
+function install_dracula::alfred(){
+    # https://draculatheme.com/alfred/
+    local -r themes_dir="$1"
+    
+    (   cd $themes_dir"/alfred"
+        open "Dracula.alfredappearance"
+    )
+}
+
+function install_dracula::iterm(){
+    # https://draculatheme.com/iterm/
+    local -r themes_dir="$1"
+
+    # (   cd $themes_dir"/iterm"
+    #     open "Dracula.itermcolors"
+    # )
+}
+
+function install_dracula::slack(){
+    # https://draculatheme.com/slack/
+    local -r themes_dir="$1"
+
+    # (   cd $themes_dir"/slack"
+    #     open "Dracula.alfredappearance"
+    # )
+}
+
+function install_dracula::sublime(){
+    # https://draculatheme.com/sublime/
+    local -r themes_dir="$1"
+
+    # (   cd $themes_dir"/sublime"
+    #     open "Dracula.tmTheme"
+    # )
+}
+
+function install_dracula::textmate(){
+    # https://draculatheme.com/textmate/
+    local -r themes_dir="$1"
+
+    (   cd $themes_dir"/textmate"
+        open "Dracula.tmTheme"
+    )
+}
+
+function install_dracula::textual(){
+    # https://draculatheme.com/textual/
+    local -r themes_dir="$1"
+
+    # (   cd $themes_dir"/textual"
+    #     open "Dracula.alfredappearance"
+    # )
+}
+
+function install_dracula::zsh(){
+    # https://draculatheme.com/zsh/
+    local -r themes_dir="$1"
+    local -r DRACULA_THEME="$themes_dir/zsh/dracula.zsh-theme" 
+    local -r OH_MY_ZSH="~/.oh-my-zsh/themes"
+    local -r ZSH_CONFIG="$HOME/.zshrc"
+
+    # link theme
+    ln -s $DRACULA_THEME $OH_MY_ZSH
+    
+    # remove the current ZSH_THEME="<text>" line, if it exists
+    sed -i.bak '/.*ZSH_THEME.*/d' $ZSH_CONFIG
+    
+    # echo dracula theme setting to config file
+    echo 'ZSH_THEME="dracula"' > $ZSH_CONFIG
+}
+
+
+
+function install_dracula(){
+    local -r themes_dir="./support/resources/themes/dracula"
+    
+    install_dracula::alfred $themes_dir
+    # install_dracula::iterm $themes_dir
+    # install_dracula::slack $themes_dir
+    # install_dracula::sublime $themes_dir
+    install_dracula::textmate $themes_dir
+    # install_dracula::textual $themes_dir
+    install_dracula::zsh $themes_dir
+    
+     
+}
+
+
 
 function main(){
     
