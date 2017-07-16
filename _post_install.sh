@@ -229,7 +229,7 @@ function install_dracula::alfred(){
 
 function install_dracula::textmate(){
     # https://draculatheme.com/textmate/
-    # local -r themes_dir="$1"
+    local -r themes_dir="$1"
 
     (   cd "$themes_dir/textmate" || return
         open "Dracula.tmTheme"
