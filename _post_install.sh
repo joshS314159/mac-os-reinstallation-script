@@ -10,6 +10,7 @@ set -o pipefail; #exit script if anything fails in pipe
 #########################
 # declare -r FILE_NAME=$(basename $0)
 declare -r ARGS="$@"
+declare -r PROGRAM="$0"
 
 # declare -r APPLE_SCRIPTS="./support/scripts/apple_scripts/"
 declare -r BASH_SCRIPTS="./support/scripts/bash/"
@@ -23,36 +24,17 @@ declare -r BASH_SCRIPTS="./support/scripts/bash/"
 #######################################################################################################
 #######################################################################################################
 function read_parameters() {
-    local -r args="$1"
+
+    local is_dump_homebrew="false"
     
-    # Transform long options to short ones
-    for arg in "$args"; do
-      shift
-      case "$arg" in
-        "--help") set -- "$@" "-h" ;;
-        "--rest") set -- "$@" "-r" ;;
-        "--ws")   set -- "$@" "-w" ;;
-        *)        set -- "$@" "$arg"
+    while getopts ":h" opt; do
+      case ${opt} in
+        h ) usage
+            ;;
+        \? ) usage
+            ;;
       esac
     done
-
-    # Default behavior
-    local rest=false
-    local ws=false
-
-    # Parse short options
-    local OPTIND=1
-    while getopts "hrw" opt
-    do
-      case "$opt" in
-        "h") print_usage; exit 0 ;;
-        "r") rest=true ;;
-        "w") ws=true ;;
-        "?") print_usage >&2; exit 1 ;;
-      esac
-    done
-    # shift "$(expr $OPTIND - 1)" # remove options from positional parameters
-    shift "$(( OPTIND - 1 ))" # remove options from positional parameters
 }
 
 
@@ -64,11 +46,11 @@ function read_parameters() {
 # http://docopt.org ###################################################################################
 #######################################################################################################
 #######################################################################################################
-function print_usage(){
+function usage(){
     echo "-----------------------------------------------------------------------------------------------------"
     echo "Usage: $PROGRAM ( --help )"
     echo 
-    echo "       --help | -h        HELP: displays this usage page"
+    echo "       -h        HELP: displays this usage page"
     echo
     echo "-----------------------------------------------------------------------------------------------------"
 }
@@ -278,9 +260,9 @@ function arq::retrieve_restore_binary(){
     )
 }
 
-function arq::restore_from_backup(){
-    
-}
+# function arq::restore_from_backup(){
+#   
+# }
 
 
 
@@ -293,7 +275,9 @@ function arq::restore_from_backup(){
 
 function main(){
     
-    read_parameters "$ARGS"
+    read_parameters $ARGS
+    
+
 
     # setup_folder_structure
     # install_homebrew
