@@ -81,7 +81,7 @@ function print_usage(){
 #######################################################################################################
 #######################################################################################################
 function dump_homebrew(){
-    brew bundle dump --force --file="./support/resources/brew/Brewfile"
+    brew bundle dump --force --file="./support/resources/brew/Brewfile.dump"
 }
 
 

@@ -1,7 +1,9 @@
 #!/bin/bash
 
-set -o pipefail
-
+set -e; # exit all shells if script fails
+set -u; # exit script if uninitialized variable is used
+set -o pipefail; #exit script if anything fails in pipe
+# set -x; #debug mode
 
 #########################
 # GLOBALS ###############
@@ -39,7 +41,7 @@ function read_parameters() {
     local ws=false
 
     # Parse short options
-    OPTIND=1
+    local OPTIND=1
     while getopts "hrw" opt
     do
       case "$opt" in
