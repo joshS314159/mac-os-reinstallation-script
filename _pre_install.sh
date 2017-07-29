@@ -1,6 +1,9 @@
 #!/bin/bash
 
-set -o pipefail
+set -e; # exit all shells if script fails
+set -u; # exit script if uninitialized variable is used
+set -o pipefail; #exit script if anything fails in pipe
+# set -x; #debug mode
 
 
 #########################
@@ -22,36 +25,32 @@ declare -r APPLE_SCRIPTS="./support/scripts/apple_scripts/"
 #######################################################################################################
 #######################################################################################################
 function read_parameters() {
-    local -r args="$1"
+    local is_dump_homebrew="false"
+    local is_run_mackup="false"
+    local is_run_arq="false"
+    local is_update_devonthink="false"
     
-    # Transform long options to short ones
-    for arg in "$args"; do
-      shift
-      case "$arg" in
-        "--help") set -- "$@" "-h" ;;
-        "--rest") set -- "$@" "-r" ;;
-        "--ws")   set -- "$@" "-w" ;;
-        *)        set -- "$@" "$arg"
+    while getopts ":hdmai" opt; do
+      case ${opt} in
+        h ) usage
+            ;;
+        m ) is_run_mackup="true"
+            ;;
+        d ) is_dump_homebrew="true"
+            ;;
+        a ) is_run_arq="true"
+            ;;
+        i ) is_update_devonthink="true"
+            ;;
+        \? ) usage
+            ;;
       esac
     done
-
-    # Default behavior
-    local rest=false
-    local ws=false
-
-    # Parse short options
-    local -r OPTIND=1
-    while getopts "hrw" opt
-    do
-      case "$opt" in
-        "h") print_usage; exit 0 ;;
-        "r") rest=true ;;
-        "w") ws=true ;;
-        "?") print_usage >&2; exit 1 ;;
-      esac
-    done
-    # shift $(expr $OPTIND - 1) # remove options from positional parameters
-    shift "$(( OPTIND - 1 ))" # remove options from positional parameters
+    
+    readonly IS_DUMP_HOMEBREW=$is_dump_homebrew
+    readonly IS_RUN_MACKUP=$is_run_mackup
+    readonly IS_RUN_ARQ=$is_run_arq
+    readonly IS_UPDATE_DEVONTHINK=$is_update_devonthink
 }
 
 
@@ -63,13 +62,21 @@ function read_parameters() {
 # http://docopt.org ###################################################################################
 #######################################################################################################
 #######################################################################################################
-function print_usage(){
-  echo "-----------------------------------------------------------------------------------------------------"
-  echo "Usage: $PROGRAM ( --help )"
-  echo 
-  echo "       --help | -h        HELP: displays this usage page"
-  echo
-  echo "-----------------------------------------------------------------------------------------------------"
+function usage(){
+    echo "-----------------------------------------------------------------------------------------------------"
+    echo "Usage: $PROGRAM [-h] [-d] [-m] [-a] [-i] "
+    echo 
+    echo "       -h        HELP: displays this usage page"
+    echo
+    echo "       -d        dumps homebrew information (installed apps) to Brewfile.dump"
+    echo
+    echo "       -m        run \`mackup backup\` to update backed up preference files"
+    echo
+    echo "       -a        run arq backup"
+    echo
+    echo "       -i        index and sync DevonThink"
+    echo
+    echo "-----------------------------------------------------------------------------------------------------"
 }
 
 
@@ -134,10 +141,21 @@ function backup_arq(){
 function main(){
     read_parameters "$ARGS"
     
-    index_and_sync_devonthink
-    dump_homebrew
-    # backup_mackup
-    backup_arq
+    if [[ "$IS_DUMP_HOMEBREW" == "true" ]]; then
+        dump_homebrew
+    fi
+    
+    if [[ "$IS_RUN_MACKUP" == "true" ]]; then
+        backup_mackup
+    fi
+    
+    if [[ "$IS_UPDATE_DEVONTHINK" == "true" ]]; then
+        index_and_sync_devonthink
+    fi
+    
+    if [[ "$IS_RUN_ARQ" == "true" ]]; then
+        backup_arq
+    fi
 }
 main
 
