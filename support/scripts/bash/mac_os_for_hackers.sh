@@ -45,7 +45,7 @@ function general_ui_ux(){
     # sudo pmset -a standbydelay 86400
 
     # Disable the sound effects on boot
-    # sudo nvram SystemAudioVolume=" "
+    sudo nvram SystemAudioVolume=" "
 
     # Disable transparency in the menu bar and elsewhere on Yosemite
     # defaults write com.apple.universalaccess reduceTransparency -bool true
@@ -287,7 +287,7 @@ function finder(){
     # defaults write com.apple.finder ShowStatusBar -bool true
 
     # Finder: show path bar
-    defaults write com.apple.finder ShowPathbar -bool true
+    defaults write com.apple.finder ShowPathbar -bool false
 
     # Display full POSIX path as Finder window title
     # defaults write com.apple.finder _FXShowPosixPathInTitle -bool true
