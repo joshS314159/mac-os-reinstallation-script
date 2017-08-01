@@ -96,7 +96,7 @@ function usage(){
     log_func "${FUNCNAME[0]}"
     echo "
     -----------------------------------------------------------------------------------------------------
-    Usage: $PROGRAM [-h] [-d] [-m] [-a] [-i] 
+     Usage: $PROGRAM ( [-dmai] | -z | -h )
 
         -h        HELP: displays this usage page
 
@@ -109,6 +109,9 @@ function usage(){
         -i        index and sync DevonThink
 
         -z        enable all flags (except -h/help) for this program
+        
+        
+     Need more info on this documentation? Visit http://docopt.org
 
     -----------------------------------------------------------------------------------------------------"
 }

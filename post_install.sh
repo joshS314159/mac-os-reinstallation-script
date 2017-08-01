@@ -30,7 +30,7 @@ function usage(){
     log_func "${FUNCNAME[0]}"
     echo "
     -----------------------------------------------------------------------------------------------------
-     Usage: $PROGRAM ( --help )
+     Usage: $PROGRAM ( [-fbursd] | -z | -h )
      
             -h        HELP: displays this usage page
     
@@ -45,8 +45,13 @@ function usage(){
             -s        setup shell (oh-my-zsh, themes, etc.)
     
             -d        set system defaults (\"hacker\" scripts, dock init, etc.)
+            
+            -z        enable all flags (except -h/help) for this program
+            
+     
+     Need more info on this documentation? Visit http://docopt.org
     
-     -----------------------------------------------------------------------------------------------------"
+    -----------------------------------------------------------------------------------------------------"
 }
 
 
