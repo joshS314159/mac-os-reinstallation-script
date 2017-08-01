@@ -11,6 +11,7 @@ set -o pipefail; #exit script if anything fails in pipe
 #########################
 # declare -r FILE_NAME="$0"
 # declare -r FILE_NAME=$(basename $0)
+declare -r PROGRAM="$0"
 declare -r ARGS="$@"
 
 declare -r APPLE_SCRIPTS="./support/scripts/apple_scripts/"
@@ -44,6 +45,7 @@ function read_parameters(){
         i ) is_update_devonthink="true"
             ;;
         z ) is_do_all="true"
+            ;;
         \? ) usage
             ;;
       esac
