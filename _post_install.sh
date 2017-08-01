@@ -18,26 +18,6 @@ declare -r BASH_SCRIPTS="./support/scripts/bash/"
 
 
 
-#######################################################################################################
-#######################################################################################################
-# read paramters in ###################################################################################
-#######################################################################################################
-#######################################################################################################
-function read_parameters() {
-
-    local is_dump_homebrew="false"
-    
-    while getopts ":h" opt; do
-      case ${opt} in
-        h ) usage
-            ;;
-        \? ) usage
-            ;;
-      esac
-    done
-}
-
-
 
 #######################################################################################################
 #######################################################################################################
@@ -52,8 +32,67 @@ function usage(){
     echo 
     echo "       -h        HELP: displays this usage page"
     echo
+    echo "       -f        set up default folder structure"
+    echo
+    echo "       -b        install home brew and install apps from dump file"
+    echo
+    echo "       -u        curl apps at urls"
+    echo
+    echo "       -r        clone data at repos (probably just themes)"
+    echo
+    echo "       -s        setup shell (oh-my-zsh, themes, etc.)"
+    echo
+    echo "       -d        set system defaults (\"hacker\" scripts, dock init, etc.)"
+    echo
     echo "-----------------------------------------------------------------------------------------------------"
 }
+
+
+
+#######################################################################################################
+#######################################################################################################
+# read paramters in ###################################################################################
+#######################################################################################################
+#######################################################################################################
+function read_parameters() {
+    local is_dump_homebrew="false"
+    local is_setup_folder_structure="false"
+    local is_run_homebrew="false"
+    local is_curl_at_urls="false"
+    local is_clone_repos="false"
+    local is_setup_shell="false"
+    local is_set_defaults="false"
+    
+    while getopts ":hfbursd" opt; do
+      case "${opt}" in
+        h ) usage
+            ;;
+        f ) is_setup_folder_structure="true"
+            ;;
+        b ) is_run_homebrew="true"
+            ;;
+        u ) is_curl_at_urls="true"
+            ;;
+        r ) is_clone_repos="true"
+            ;;
+        s ) is_setup_shell="true"
+            ;;
+        d ) is_set_defaults="true"
+            ;;
+        \? ) usage
+            ;;
+      esac
+    done
+    
+    
+    readonly IS_SETUP_FOLDER_STRUCTURE="$is_setup_folder_structure"
+    readonly IS_RUN_HOMEBREW="$is_run_homebrew"
+    readonly IS_CURL_AT_URLS="$is_curl_at_urls"
+    readonly IS_CLONE_REPOS="$is_clone_repos"
+    readonly IS_SETUP_SHELL="$is_setup_shell"
+    readonly IS_SET_DEFAULTS="$is_set_defaults"
+}
+
 
 
 #######################################################################################################
@@ -266,35 +305,48 @@ function arq::retrieve_restore_binary(){
 
 
 
+
+
 #######################################################################################################
 #######################################################################################################
 # main ################################################################################################
 #######################################################################################################
 #######################################################################################################
 
-
 function main(){
-    
     read_parameters $ARGS
     
+    if [[ "$IS_SETUP_FOLDER_STRUCTURE" == "true" ]]; then
+        setup_folder_structure
+    fi
+    
+    if [[ "$IS_RUN_HOMEBREW" == "true" ]]; then
+        install_homebrew
+        install_apps_in_brewfile
+    fi
+    
+    if [[ "$IS_CURL_AT_URLS" == "true" ]]; then
+        curl_from_url
+    fi
+    
+    if [[ "$IS_CLONE_REPOS" == "true" ]]; then 
+        clone_repos
+    fi
 
-
-    # setup_folder_structure
-    # install_homebrew
-    # install_apps_in_brewfile
-    # curl_from_url
-    # clone_repos
-    # set_bash_aliases
-    # set_zsh_as_default_shell
-    # install_oh_my_zsh
-    # set_zsh_dracula_theme
-    # setup_hacker_defaults
-    # clear_dock
-    # add_desired_apps_to_dock
-
+    if [[ "$IS_SETUP_SHELL" == "true" ]]; then
+        set_zsh_as_default_shell
+        install_oh_my_zsh
+        set_zsh_dracula_theme
+    fi
+    
+    if [[ "$IS_SET_DEFAULTS" == "true" ]]; then
+        setup_hacker_defaults
+        clear_dock
+        add_desired_apps_to_dock
+    fi
 
 }
 main
-# 
+
 
 
