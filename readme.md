@@ -1,5 +1,5 @@
 # Before Reinstallation
-1. Run `pre_install.sh -z` in `mac-os-reinstallation-script`
+1. Run `bash pre_install.sh -z` in `mac-os-reinstallation-script`
 2. <s>Index applicable folders on DevonThink</s>
 2. Run sync'ing
     * 1Password
