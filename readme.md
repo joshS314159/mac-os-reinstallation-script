@@ -1,4 +1,4 @@
-#Before Reinstallation
+# Before Reinstallation
 1. Run `pre_install.sh -z` in `mac-os-reinstallation-script`
 2. <s>Index applicable folders on DevonThink</s>
 2. Run sync'ing
@@ -32,7 +32,7 @@
 * $HOME: backed up with Arq
 
 
-#After Reinstallation
+# After Reinstallation
 
 1. `cd Downloads`
 2. `git clone https://github.com/joshS314159/mac-os-reinstallation-script.git`
