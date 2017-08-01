@@ -135,7 +135,7 @@ function read_parameters(){
 #######################################################################################################
 #######################################################################################################
 function setup_folder_structure(){
-	log_func "${FUNCNAME[0]}"
+    log_func "${FUNCNAME[0]}"
     mkdir -p "$HOME/Documents/Developer"
     
     mkdir -p "$HOME/Documents/Developer/Repositories/"
@@ -160,7 +160,7 @@ function setup_folder_structure(){
 #######################################################################################################
 #######################################################################################################
 function homebrew::install(){
-	log_func "${FUNCNAME[0]}"
+    log_func "${FUNCNAME[0]}"
     
     # INSTALL HOMEBREW
     local -r homebrew_url="https://raw.githubusercontent.com/Homebrew/install/master/install"
@@ -172,7 +172,7 @@ function homebrew::install(){
 
 
 function homebrew::install_brewfile(){
-	log_func "${FUNCNAME[0]}"
+    log_func "${FUNCNAME[0]}"
     brew bundle
 }
 
@@ -185,14 +185,14 @@ function homebrew::install_brewfile(){
 #######################################################################################################
 
 function shell:set_zsh_default(){
-	log_func "${FUNCNAME[0]}"
+    log_func "${FUNCNAME[0]}"
     chsh -s "$(which zsh)"
 }
 
 
 
 function shell::install_oh_my_zsh(){
-	log_func "${FUNCNAME[0]}"
+    log_func "${FUNCNAME[0]}"
     local -r oh_my_zsh_url="https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
     sh -c "$(curl -fsSL $oh_my_zsh_url)"
 }
@@ -205,7 +205,7 @@ function shell::install_oh_my_zsh(){
 #######################################################################################################
 #######################################################################################################
 function setup_hacker_defaults(){
-	log_func "${FUNCNAME[0]}"
+    log_func "${FUNCNAME[0]}"
     (   cd "$BASH_SCRIPTS" || return
         bash "mac_os_for_hackers.sh"
     )
@@ -218,13 +218,13 @@ function setup_hacker_defaults(){
 #######################################################################################################
 #######################################################################################################
 function dock::clear(){
-	log_func "${FUNCNAME[0]}"
+    log_func "${FUNCNAME[0]}"
     dockutil --remove all #remove all the crap from the dock
 }
 
 
 function dock::add_apps(){
-	log_func "${FUNCNAME[0]}"
+    log_func "${FUNCNAME[0]}"
     dockutil --add "/Applications/DEVONthink Pro.app"
     dockutil --add "/Applications/Mail.app"
 }
@@ -240,7 +240,7 @@ function dock::add_apps(){
 #######################################################################################################
 
 function install_dracula::alfred(){
-	log_func "${FUNCNAME[0]}"
+    log_func "${FUNCNAME[0]}"
     # https://draculatheme.com/alfred/
     local -r themes_dir="$1"
     
@@ -250,7 +250,7 @@ function install_dracula::alfred(){
 }
 
 function install_dracula::iterm(){
-	log_func "${FUNCNAME[0]}"
+    log_func "${FUNCNAME[0]}"
     # https://draculatheme.com/iterm/
     # local -r themes_dir="$1"
 
@@ -260,7 +260,7 @@ function install_dracula::iterm(){
 }
 
 function install_dracula::slack(){
-	log_func "${FUNCNAME[0]}"
+    log_func "${FUNCNAME[0]}"
     # https://draculatheme.com/slack/
     # local -r themes_dir="$1"
 
@@ -270,7 +270,7 @@ function install_dracula::slack(){
 }
 
 function install_dracula::sublime(){
-	log_func "${FUNCNAME[0]}"
+    log_func "${FUNCNAME[0]}"
     # https://draculatheme.com/sublime/
     # local -r themes_dir="$1"
 
@@ -280,7 +280,7 @@ function install_dracula::sublime(){
 }
 
 function install_dracula::textmate(){
-	log_func "${FUNCNAME[0]}"
+    log_func "${FUNCNAME[0]}"
     # https://draculatheme.com/textmate/
     local -r themes_dir="$1"
 
@@ -290,7 +290,7 @@ function install_dracula::textmate(){
 }
 
 function install_dracula::textual(){
-	log_func "${FUNCNAME[0]}"
+    log_func "${FUNCNAME[0]}"
     # https://draculatheme.com/textual/
     # local -r themes_dir="$1"
 
@@ -300,7 +300,7 @@ function install_dracula::textual(){
 }
 
 function install_dracula::zsh(){
-	log_func "${FUNCNAME[0]}"
+    log_func "${FUNCNAME[0]}"
     # https://draculatheme.com/zsh/
     local -r themes_dir="$1"
     local -r dracula_theme="$themes_dir/zsh/dracula.zsh-theme" 
@@ -320,7 +320,7 @@ function install_dracula::zsh(){
 
 
 function install_dracula(){
-	log_func "${FUNCNAME[0]}"
+    log_func "${FUNCNAME[0]}"
     local -r themes_dir="./support/resources/themes/dracula"
     
     install_dracula::alfred "$themes_dir"
@@ -343,14 +343,14 @@ function install_dracula(){
 #######################################################################################################
 
 function arq::retrieve_restore_binary(){
-	log_func "${FUNCNAME[0]}"
+    log_func "${FUNCNAME[0]}"
     (   cd "$HOME/Downloads" || return
         wget "https://arqbackup.github.io/arq_restore/arq_restore.zip"
     )
 }
 
 function arq::restore_from_backup(){
-	log_func "${FUNCNAME[0]}"
+    log_func "${FUNCNAME[0]}"
 #   
 }
 
@@ -365,7 +365,7 @@ function arq::restore_from_backup(){
 #######################################################################################################
 
 function main(){
-	log_func "${FUNCNAME[0]}"
+    log_func "${FUNCNAME[0]}"
     read_parameters $ARGS
     
     if [[ "$IS_SETUP_FOLDER_STRUCTURE" == "true" ]]; then

@@ -10,7 +10,7 @@ set -o pipefail; #exit script if anything fails in pipe
 
 
 function initialize(){
-	log_func "${FUNCNAME[0]}"
+    log_func "${FUNCNAME[0]}"
     # Close any open System Preferences panes, to prevent them from overriding
     # settings we’re about to change
     osascript -e 'tell application "System Preferences" to quit'
@@ -43,7 +43,7 @@ function log_func(){
 # General UI/UX                                                               #
 ###############################################################################
 function general_ui_ux(){
-	log_func "${FUNCNAME[0]}"
+    log_func "${FUNCNAME[0]}"
     # Set computer name (as done via System Preferences → Sharing)
     #sudo scutil --set ComputerName "0x6D746873"
     #sudo scutil --set HostName "0x6D746873"
@@ -159,7 +159,7 @@ function general_ui_ux(){
 # SSD-specific tweaks                                                         #
 ###############################################################################
 function ssd_tweaks(){
-	log_func "${FUNCNAME[0]}"
+    log_func "${FUNCNAME[0]}"
     # Disable hibernation (speeds up entering sleep mode)
     # sudo pmset -a hibernatemode 0
 
@@ -176,7 +176,7 @@ function ssd_tweaks(){
 # Trackpad, mouse, keyboard, Bluetooth accessories, and input                 #
 ###############################################################################
 function general_input(){
-	log_func "${FUNCNAME[0]}"
+    log_func "${FUNCNAME[0]}"
     # Trackpad: enable tap to click for this user and for the login screen
     # defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
     # defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
@@ -233,7 +233,7 @@ function general_input(){
 # Screen                                                                      #
 ###############################################################################
 function screen(){
-	log_func "${FUNCNAME[0]}"
+    log_func "${FUNCNAME[0]}"
     # Require password immediately after sleep or screen saver begins
     defaults write com.apple.screensaver askForPassword -int 1
     defaults write com.apple.screensaver askForPasswordDelay -int 0
@@ -261,7 +261,7 @@ function screen(){
 # Finder                                                                      #
 ###############################################################################
 function finder(){
-	log_func "${FUNCNAME[0]}"
+    log_func "${FUNCNAME[0]}"
     # Finder: allow quitting via ⌘ + Q; doing so will also hide desktop icons
     # defaults write com.apple.finder QuitMenuItem -bool true
 
@@ -386,7 +386,7 @@ function finder(){
 # Dock, Dashboard, and hot corners                                            #
 ###############################################################################
 function dock_and_dashboard(){
-	log_func "${FUNCNAME[0]}"
+    log_func "${FUNCNAME[0]}"
     # Enable highlight hover effect for the grid view of a stack (Dock)
     # defaults write com.apple.dock mouse-over-hilite-stack -bool true
 
@@ -494,7 +494,7 @@ function dock_and_dashboard(){
 # Safari & WebKit                                                             #
 ###############################################################################
 function safari(){
-	log_func "${FUNCNAME[0]}"
+    log_func "${FUNCNAME[0]}"
     # Privacy: don’t send search queries to Apple
     defaults write com.apple.Safari UniversalSearchEnabled -bool false
     defaults write com.apple.Safari SuppressSearchSuggestions -bool true
@@ -585,7 +585,7 @@ function safari(){
 # Mail                                                                        #
 ###############################################################################
 function mail(){
-	log_func "${FUNCNAME[0]}"
+    log_func "${FUNCNAME[0]}"
     # Disable send and reply animations in Mail.app
     # defaults write com.apple.mail DisableReplyAnimations -bool true
     # defaults write com.apple.mail DisableSendAnimations -bool true
@@ -613,7 +613,7 @@ function mail(){
 # Spotlight                                                                   #
 ###############################################################################
 function spotlight(){
-	log_func "${FUNCNAME[0]}"
+    log_func "${FUNCNAME[0]}"
     log_func "${FUNCNAME[0]}"
     # Hide Spotlight tray-icon (and subsequent helper)
     #sudo chmod 600 /System/Library/CoreServices/Search.bundle/Contents/MacOS/Search
@@ -623,12 +623,12 @@ function spotlight(){
     # sudo defaults write /.Spotlight-V100/VolumeConfiguration Exclusions -array "/Volumes"
     # Change indexing order and disable some search results
     # Yosemite-specific search results (remove them if you are using macOS 10.9 or older):
-    # 	MENU_DEFINITION
-    # 	MENU_CONVERSION
-    # 	MENU_EXPRESSION
-    # 	MENU_SPOTLIGHT_SUGGESTIONS (send search queries to Apple)
-    # 	MENU_WEBSEARCH             (send search queries to Apple)
-    # 	MENU_OTHER
+    #   MENU_DEFINITION
+    #   MENU_CONVERSION
+    #   MENU_EXPRESSION
+    #   MENU_SPOTLIGHT_SUGGESTIONS (send search queries to Apple)
+    #   MENU_WEBSEARCH             (send search queries to Apple)
+    #   MENU_OTHER
     # defaults write com.apple.spotlight orderedItems -array \
     #     '{"enabled" = 1;"name" = "APPLICATIONS";}' \
     #     '{"enabled" = 1;"name" = "SYSTEM_PREFS";}' \
@@ -664,7 +664,7 @@ function spotlight(){
 # Terminal & iTerm 2                                                          #
 ###############################################################################
 function terminal_iterm(){
-	log_func "${FUNCNAME[0]}"
+    log_func "${FUNCNAME[0]}"
 
     # Only use UTF-8 in Terminal.app
     # defaults write com.apple.terminal StringEncodings -array 4
@@ -739,7 +739,7 @@ function terminal_iterm(){
 ###############################################################################
 
 function time_machine(){
-	log_func "${FUNCNAME[0]}"
+    log_func "${FUNCNAME[0]}"
     # Prevent Time Machine from prompting to use new hard drives as backup volume
     defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true
 
@@ -752,7 +752,7 @@ function time_machine(){
 ###############################################################################
 
 function activity_monitor(){
-	log_func "${FUNCNAME[0]}"
+    log_func "${FUNCNAME[0]}"
     log_func "${FUNCNAME[0]}"
     # Show the main window when launching Activity Monitor
     # defaults write com.apple.ActivityMonitor OpenMainWindow -bool true
@@ -773,28 +773,28 @@ function activity_monitor(){
 ###############################################################################
 
 function address_book(){
-	log_func "${FUNCNAME[0]}"
+    log_func "${FUNCNAME[0]}"
     log_func "${FUNCNAME[0]}"
     # Enable the debug menu in Address Book
     # defaults write com.apple.addressbook ABShowDebugMenu -bool true
 }
 
 function dashboard(){
-	log_func "${FUNCNAME[0]}"
+    log_func "${FUNCNAME[0]}"
     log_func "${FUNCNAME[0]}"
     # Enable Dashboard dev mode (allows keeping widgets on the desktop)
     # defaults write com.apple.dashboard devmode -bool true
 }
 
 function calendar(){
-	log_func "${FUNCNAME[0]}"
+    log_func "${FUNCNAME[0]}"
     log_func "${FUNCNAME[0]}"
     # Enable the debug menu in iCal (pre-10.8)
     # defaults write com.apple.iCal IncludeDebugMenu -bool true
 }
 
 function text_edit(){
-	log_func "${FUNCNAME[0]}"
+    log_func "${FUNCNAME[0]}"
     log_func "${FUNCNAME[0]}"
     # Use plain text mode for new TextEdit documents
     # defaults write com.apple.TextEdit RichText -int 0
@@ -805,14 +805,14 @@ function text_edit(){
 
 
 function disk_utility(){
-	log_func "${FUNCNAME[0]}"
+    log_func "${FUNCNAME[0]}"
     # Enable the debug menu in Disk Utility
     # defaults write com.apple.DiskUtility DUDebugMenuEnabled -bool true
     # defaults write com.apple.DiskUtility advanced-image-options -bool true
 }
 
 function quicktime(){
-	log_func "${FUNCNAME[0]}"
+    log_func "${FUNCNAME[0]}"
     # Auto-play videos when opened with QuickTime Player
     # defaults write com.apple.QuickTimePlayerX MGPlayMovieOnOpen -bool true
 }
@@ -823,7 +823,7 @@ function quicktime(){
 # Mac App Store                                                               #
 ###############################################################################
 function mac_app_store(){
-	log_func "${FUNCNAME[0]}"
+    log_func "${FUNCNAME[0]}"
     # Enable the WebKit Developer Tools in the Mac App Store
     # defaults write com.apple.appstore WebKitDeveloperExtras -bool true
 
@@ -856,7 +856,7 @@ function mac_app_store(){
 # Photos                                                                      #
 ###############################################################################
 function photos(){
-	log_func "${FUNCNAME[0]}"
+    log_func "${FUNCNAME[0]}"
     # Prevent Photos from opening automatically when devices are plugged in
     defaults -currentHost write com.apple.ImageCapture disableHotPlug -bool true
 }
@@ -865,7 +865,7 @@ function photos(){
 # Messages                                                                    #
 ###############################################################################
 function messages(){
-	log_func "${FUNCNAME[0]}"
+    log_func "${FUNCNAME[0]}"
     # Disable automatic emoji substitution (i.e. use plain text smileys)
     # defaults write com.apple.messageshelper.MessageController SOInputLineSettings -dict-add "automaticEmojiSubstitutionEnablediMessage" -bool false
 
@@ -880,7 +880,7 @@ function messages(){
 # Google Chrome & Google Chrome Canary                                        #
 ###############################################################################
 function google_chrome(){
-	log_func "${FUNCNAME[0]}"
+    log_func "${FUNCNAME[0]}"
     # Disable the all too sensitive backswipe on trackpads
     # defaults write com.google.Chrome AppleEnableSwipeNavigateWithScrolls -bool false
     # defaults write com.google.Chrome.canary AppleEnableSwipeNavigateWithScrolls -bool false
@@ -902,7 +902,7 @@ function google_chrome(){
 # GPGMail 2                                                                   #
 ###############################################################################
 function gpg_mail(){
-	log_func "${FUNCNAME[0]}"
+    log_func "${FUNCNAME[0]}"
     # Disable signing emails by default
     # defaults write ~/Library/Preferences/org.gpgtools.gpgmail SignNewEmailsByDefault -bool false
 }
@@ -911,7 +911,7 @@ function gpg_mail(){
 # Opera & Opera Developer                                                     #
 ###############################################################################
 function opera(){
-	log_func "${FUNCNAME[0]}"
+    log_func "${FUNCNAME[0]}"
     # Expand the print dialog by default
     # defaults write com.operasoftware.Opera PMPrintingExpandedStateForPrint2 -boolean true
     # defaults write com.operasoftware.OperaDeveloper PMPrintingExpandedStateForPrint2 -boolean true
@@ -921,7 +921,7 @@ function opera(){
 # SizeUp.app                                                                  #
 ###############################################################################
 function sizeup_app(){
-	log_func "${FUNCNAME[0]}"
+    log_func "${FUNCNAME[0]}"
     # Start SizeUp at login
     # defaults write com.irradiatedsoftware.SizeUp StartAtLogin -bool true
 
@@ -933,7 +933,7 @@ function sizeup_app(){
 # Sublime Text                                                                #
 ###############################################################################
 function sublime_text(){
-	log_func "${FUNCNAME[0]}"
+    log_func "${FUNCNAME[0]}"
     # Install Sublime Text settings
     # cp -r init/Preferences.sublime-settings ~/Library/Application\ Support/Sublime\ Text*/Packages/User/Preferences.sublime-settings 2> /dev/null
 }
@@ -943,7 +943,7 @@ function sublime_text(){
 ###############################################################################
 
 function transmission(){
-	log_func "${FUNCNAME[0]}"
+    log_func "${FUNCNAME[0]}"
     # Use `~/Documents/Torrents` to store incomplete downloads
     # defaults write org.m0k.transmission UseIncompleteDownloadFolder -bool true
     # defaults write org.m0k.transmission IncompleteDownloadFolder -string "${HOME}/Documents/Torrents"
@@ -980,7 +980,7 @@ function transmission(){
 # Twitter.app                                                                 #
 ###############################################################################
 function twitter(){
-	log_func "${FUNCNAME[0]}"
+    log_func "${FUNCNAME[0]}"
     # Disable smart quotes as it’s annoying for code tweets
     # defaults write com.twitter.twitter-mac AutomaticQuoteSubstitutionEnabled -bool false
 
@@ -1007,7 +1007,7 @@ function twitter(){
 # Tweetbot.app                                                                #
 ###############################################################################
 function tweetbot(){
-	log_func "${FUNCNAME[0]}"
+    log_func "${FUNCNAME[0]}"
     # Bypass the annoyingly slow t.co URL shortener
     # defaults write com.tapbots.TweetbotMac OpenURLsDirectly -bool true
 }
@@ -1016,7 +1016,7 @@ function tweetbot(){
 # Spectacle.app                                                               #
 ###############################################################################
 function spectable_app(){
-	log_func "${FUNCNAME[0]}"
+    log_func "${FUNCNAME[0]}"
     # Set up my preferred keyboard shortcuts
     # defaults write com.divisiblebyzero.Spectacle MakeLarger -data 62706c6973743030d40102030405061819582476657273696f6e58246f626a65637473592461726368697665725424746f7012000186a0a40708101155246e756c6cd4090a0b0c0d0e0d0f596d6f64696669657273546e616d65576b6579436f64655624636c6173731000800280035a4d616b654c6172676572d2121314155a24636c6173736e616d655824636c6173736573585a4b486f744b6579a21617585a4b486f744b6579584e534f626a6563745f100f4e534b657965644172636869766572d11a1b54726f6f74800108111a232d32373c424b555a62696b6d6f7a7f8a939c9fa8b1c3c6cb0000000000000101000000000000001c000000000000000000000000000000cd
     # defaults write com.divisiblebyzero.Spectacle MakeSmaller -data 62706c6973743030d40102030405061819582476657273696f6e58246f626a65637473592461726368697665725424746f7012000186a0a40708101155246e756c6cd4090a0b0c0d0e0d0f596d6f64696669657273546e616d65576b6579436f64655624636c6173731000800280035b4d616b65536d616c6c6572d2121314155a24636c6173736e616d655824636c6173736573585a4b486f744b6579a21617585a4b486f744b6579584e534f626a6563745f100f4e534b657965644172636869766572d11a1b54726f6f74800108111a232d32373c424b555a62696b6d6f7b808b949da0a9b2c4c7cc0000000000000101000000000000001c000000000000000000000000000000ce
@@ -1048,35 +1048,35 @@ function spectable_app(){
 ###############################################################################
 
 function kill_affected(){
-	log_func "${FUNCNAME[0]}"
+    log_func "${FUNCNAME[0]}"
     for app in "Activity Monitor" \
-    	"Address Book" \
-    	"Calendar" \
-    	"cfprefsd" \
-    	"Contacts" \
-    	"Dock" \
-    	"Finder" \
-    	"Google Chrome Canary" \
-    	"Google Chrome" \
-    	"Mail" \
-    	"Messages" \
-    	"Opera" \
-    	"Photos" \
-    	"Safari" \
-    	"SizeUp" \
-    	"Spectacle" \
-    	"SystemUIServer" \
-    	"Terminal" \
-    	"Transmission" \
-    	"Tweetbot" \
-    	"Twitter" \
-    	"iCal"; do
-    	killall "${app}" &> /dev/null
+        "Address Book" \
+        "Calendar" \
+        "cfprefsd" \
+        "Contacts" \
+        "Dock" \
+        "Finder" \
+        "Google Chrome Canary" \
+        "Google Chrome" \
+        "Mail" \
+        "Messages" \
+        "Opera" \
+        "Photos" \
+        "Safari" \
+        "SizeUp" \
+        "Spectacle" \
+        "SystemUIServer" \
+        "Terminal" \
+        "Transmission" \
+        "Tweetbot" \
+        "Twitter" \
+        "iCal"; do
+        killall "${app}" &> /dev/null
     done
 }
 
 function main(){
-	log_func "${FUNCNAME[0]}"
+    log_func "${FUNCNAME[0]}"
     
     initialize
 
