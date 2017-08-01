@@ -24,14 +24,14 @@ declare -r APPLE_SCRIPTS="./support/scripts/apple_scripts/"
 # read paramters in ###################################################################################
 #######################################################################################################
 #######################################################################################################
-function read_parameters() {
+function read_parameters(){
     local is_dump_homebrew="false"
     local is_run_mackup="false"
     local is_run_arq="false"
     local is_update_devonthink="false"
     
     while getopts ":hdmai" opt; do
-      case ${opt} in
+      case "${opt}" in
         h ) usage
             ;;
         m ) is_run_mackup="true"
@@ -47,10 +47,10 @@ function read_parameters() {
       esac
     done
     
-    readonly IS_DUMP_HOMEBREW=$is_dump_homebrew
-    readonly IS_RUN_MACKUP=$is_run_mackup
-    readonly IS_RUN_ARQ=$is_run_arq
-    readonly IS_UPDATE_DEVONTHINK=$is_update_devonthink
+    readonly IS_DUMP_HOMEBREW="$is_dump_homebrew"
+    readonly IS_RUN_MACKUP="$is_run_mackup"
+    readonly IS_RUN_ARQ="$is_run_arq"
+    readonly IS_UPDATE_DEVONTHINK="$is_update_devonthink"
 }
 
 
@@ -139,7 +139,7 @@ function backup_arq(){
 #######################################################################################################
 #######################################################################################################
 function main(){
-    read_parameters "$ARGS"
+    read_parameters $ARGS
     
     if [[ "$IS_DUMP_HOMEBREW" == "true" ]]; then
         dump_homebrew
