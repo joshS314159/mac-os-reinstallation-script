@@ -124,7 +124,9 @@ function usage(){
 #######################################################################################################
 function dump_homebrew(){
 	log_func "${FUNCNAME[0]}"
-    brew bundle dump --force --file="./support/resources/brew/Brewfile.dump"
+    
+    local -r dump_location="./support/resources/brew/Brewfile.dump"
+    brew bundle dump --force --file="$dump_location"
 }
 
 

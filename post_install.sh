@@ -161,8 +161,10 @@ function setup_folder_structure(){
 #######################################################################################################
 function homebrew::install(){
 	log_func "${FUNCNAME[0]}"
+    
     # INSTALL HOMEBREW
-    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    local -r homebrew_url="https://raw.githubusercontent.com/Homebrew/install/master/install"
+    /usr/bin/ruby -e "$(curl -fsSL $homebrew_url)"
 
     # TAP HOMEBREW BUNDLER AND INSTALL
     brew tap homebrew/bundle
@@ -191,7 +193,8 @@ function shell:set_zsh_default(){
 
 function shell::install_oh_my_zsh(){
 	log_func "${FUNCNAME[0]}"
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+    local -r oh_my_zsh_url="https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+    sh -c "$(curl -fsSL $oh_my_zsh_url)"
 }
 
 
