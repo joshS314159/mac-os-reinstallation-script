@@ -19,6 +19,10 @@
 
 * Documents: sync'd with Devonthink, backed up with Arq
 
+* Preferences/dotfiles: Mackup
+
+* Passwords: 1Password
+
 * Photos: iCloud
 
 * Music: iTunes Match / Apple Music
@@ -27,7 +31,6 @@
 
 * $HOME: backed up with Arq
 
-* Preferences/dotfiles: Mackup
 
 #After Reinstallation
 
