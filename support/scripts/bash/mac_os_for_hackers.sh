@@ -1104,7 +1104,6 @@ function main(){
     tweetbot
     spectable_app
     kill_affected
-    main
     
     log "Done. Note that some of these changes require a logout/restart to take effect."
 }
