@@ -59,7 +59,7 @@ function usage(){
 
 function log(){
     local -r msg="$1"
-    echo "======================> LOG: $msg"
+    echo "$PROGRAM ======================> LOG: $msg"
 }
 
 function log_func(){
