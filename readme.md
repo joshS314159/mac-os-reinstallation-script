@@ -36,4 +36,4 @@
 
 1. `cd Downloads`
 2. `git clone https://github.com/joshS314159/mac-os-reinstallation-script.git`
-3. `bash ./mac-os-reinstallation-script/post_install.sh`
+3. `bash ./mac-os-reinstallation-script/post_install.sh -z`
