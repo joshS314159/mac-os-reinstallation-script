@@ -22,6 +22,7 @@ function initialize(){
     while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 }
 
+
 function log(){
 	log "log"
     local -r msg="$1"
@@ -150,7 +151,6 @@ function general_ui_ux(){
 ###############################################################################
 function ssd_tweaks(){
 	log "ssd_tweaks"
-    log "empty function"
     # Disable hibernation (speeds up entering sleep mode)
     # sudo pmset -a hibernatemode 0
 
@@ -183,7 +183,7 @@ function general_input(){
     # defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
 
     # Increase sound quality for Bluetooth headphones/headsets
-    defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int 40
+    # defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int 40
 
     # Enable full keyboard access for all controls
     # (e.g. enable Tab in modal dialogs)
@@ -1094,15 +1094,15 @@ function main(){
     mac_app_store
     photos
     messages
-    google_chrome
-    gpg_mail
-    opera
-    sizeup_app
+    # google_chrome
+    # gpg_mail
+    # opera
+    # sizeup_app
     sublime_text
-    transmission
-    twitter
-    tweetbot
-    spectable_app
+    # transmission
+    # twitter
+    # tweetbot
+    # spectable_app
     kill_affected
     
     log "Done. Note that some of these changes require a logout/restart to take effect."
