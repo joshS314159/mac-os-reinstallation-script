@@ -7,8 +7,10 @@
     * Hazel
 3. Preference backup
     * <s>Run mackup (should handle everything) but...</s>
-    * Little Snitch (needs done manually)
-    * BetterTouchTool, Alfred, Hazel (should auto-sync, double check this is done)
+    * <s>Little Snitch</s>
+    * <s>BetterTouchTool</s>
+    * Alfred
+    * <s>Hazel (should auto-sync, double check this is done)</s>
 4. <s>Run Arq backups (to local and remote)</s>
 
 
