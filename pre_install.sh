@@ -26,7 +26,7 @@ declare -r APPLE_SCRIPTS="./support/scripts/apple_scripts/"
 #######################################################################################################
 #######################################################################################################
 function read_parameters(){
-	log_func "read_parameters"
+	log_func "${FUNCNAME[0]}"
     local is_dump_homebrew="false"
     local is_run_mackup="false"
     local is_run_arq="false"
@@ -93,7 +93,7 @@ function log_func(){
 #######################################################################################################
 #######################################################################################################
 function usage(){
-	log_func "usage"
+	log_func "${FUNCNAME[0]}"
     echo "-----------------------------------------------------------------------------------------------------"
     echo "Usage: $PROGRAM [-h] [-d] [-m] [-a] [-i] "
     echo 
@@ -121,7 +121,7 @@ function usage(){
 #######################################################################################################
 #######################################################################################################
 function dump_homebrew(){
-	log_func "dump_homebrew"
+	log_func "${FUNCNAME[0]}"
     brew bundle dump --force --file="./support/resources/brew/Brewfile.dump"
 }
 
@@ -133,7 +133,7 @@ function dump_homebrew(){
 #######################################################################################################
 
 function index_and_sync_devonthink(){
-	log_func "index_and_sync_devonthink"
+	log_func "${FUNCNAME[0]}"
     (   cd "$APPLE_SCRIPTS" || return
         osascript "index_devonthink.scpt"
         osascript "sync_devonthink.scpt"
@@ -147,7 +147,7 @@ function index_and_sync_devonthink(){
 #######################################################################################################
 #######################################################################################################
 function backup_mackup(){
-	log_func "backup_mackup"
+	log_func "${FUNCNAME[0]}"
     mackup backup
 }
 
@@ -158,7 +158,7 @@ function backup_mackup(){
 #######################################################################################################
 #######################################################################################################
 function backup_arq(){
-	log_func "backup_arq"
+	log_func "${FUNCNAME[0]}"
     (   cd "/Applications/Arq.app/Contents/MacOS" || return
     
         # select B2
@@ -176,7 +176,7 @@ function backup_arq(){
 #######################################################################################################
 #######################################################################################################
 function main(){
-	log_func "main"
+	log_func "${FUNCNAME[0]}"
     read_parameters $ARGS
     
     if [[ "$IS_DUMP_HOMEBREW" == "true" ]]; then
