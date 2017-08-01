@@ -93,24 +93,26 @@ function log_func(){
 #######################################################################################################
 #######################################################################################################
 function usage(){
-	log_func "${FUNCNAME[0]}"
-    echo "-----------------------------------------------------------------------------------------------------"
-    echo "Usage: $PROGRAM [-h] [-d] [-m] [-a] [-i] "
-    echo 
-    echo "       -h        HELP: displays this usage page"
-    echo
-    echo "       -d        dumps homebrew information (installed apps) to Brewfile.dump"
-    echo
-    echo "       -m        run \`mackup backup\` to update backed up preference files"
-    echo
-    echo "       -a        run arq backup"
-    echo
-    echo "       -i        index and sync DevonThink"
-    echo
-    echo "       -z        enable all flags (except -h/help) for this program"
-    echo
-    echo "-----------------------------------------------------------------------------------------------------"
+    log_func "${FUNCNAME[0]}"
+    echo "
+    -----------------------------------------------------------------------------------------------------
+    Usage: $PROGRAM [-h] [-d] [-m] [-a] [-i] 
+
+        -h        HELP: displays this usage page
+
+        -d        dumps homebrew information (installed apps) to Brewfile.dump
+
+        -m        run \`mackup backup\` to update backed up preference files
+
+        -a        run arq backup
+
+        -i        index and sync DevonThink
+
+        -z        enable all flags (except -h/help) for this program
+
+    -----------------------------------------------------------------------------------------------------"
 }
+
 
 
 

@@ -27,26 +27,28 @@ declare -r BASH_SCRIPTS="./support/scripts/bash/"
 #######################################################################################################
 #######################################################################################################
 function usage(){
-	log_func "${FUNCNAME[0]}"
-    echo "-----------------------------------------------------------------------------------------------------"
-    echo "Usage: $PROGRAM ( --help )"
-    echo 
-    echo "       -h        HELP: displays this usage page"
-    echo
-    echo "       -f        set up default folder structure"
-    echo
-    echo "       -b        install home brew and install apps from dump file"
-    echo
-    echo "       -u        curl apps at urls"
-    echo
-    echo "       -r        clone data at repos (probably just themes)"
-    echo
-    echo "       -s        setup shell (oh-my-zsh, themes, etc.)"
-    echo
-    echo "       -d        set system defaults (\"hacker\" scripts, dock init, etc.)"
-    echo
-    echo "-----------------------------------------------------------------------------------------------------"
+    log_func "${FUNCNAME[0]}"
+    echo "
+    -----------------------------------------------------------------------------------------------------
+     Usage: $PROGRAM ( --help )
+     
+            -h        HELP: displays this usage page
+    
+            -f        set up default folder structure
+    
+            -b        install home brew and install apps from dump file
+    
+            -u        curl apps at urls
+    
+            -r        clone data at repos (probably just themes)
+    
+            -s        setup shell (oh-my-zsh, themes, etc.)
+    
+            -d        set system defaults (\hacker\ scripts, dock init, etc.)
+    
+     -----------------------------------------------------------------------------------------------------"
 }
+
 
 
 #######################################################################################################
