@@ -44,7 +44,7 @@ function usage(){
     
             -s        setup shell (oh-my-zsh, themes, etc.)
     
-            -d        set system defaults (\hacker\ scripts, dock init, etc.)
+            -d        set system defaults (\"hacker\" scripts, dock init, etc.)
     
      -----------------------------------------------------------------------------------------------------"
 }
