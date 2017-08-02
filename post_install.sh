@@ -30,17 +30,13 @@ function usage(){
     log_func "${FUNCNAME[0]}"
     echo "
     -----------------------------------------------------------------------------------------------------
-     Usage: $PROGRAM ( [-fbursd] | -z | -h )
+     Usage: $PROGRAM ( [-fbsd] | -z | -h )
      
             -h        HELP: displays this usage page
     
             -f        set up default folder structure
     
             -b        install home brew and install apps from dump file
-    
-            -u        curl apps at urls
-    
-            -r        clone data at repos (probably just themes)
     
             -s        setup shell (oh-my-zsh, themes, etc.)
     
@@ -52,6 +48,17 @@ function usage(){
      Need more info on this documentation? Visit http://docopt.org
     
     -----------------------------------------------------------------------------------------------------"
+}
+
+
+#######################################################################################################
+#######################################################################################################
+# helper functions ####################################################################################
+#######################################################################################################
+#######################################################################################################
+function create_macos_popup(){
+    local -r message="$1"
+    osascript -e "tell app \"System Events\" to display dialog \"$message\""
 }
 
 
@@ -85,23 +92,17 @@ function read_parameters(){
     local is_dump_homebrew="false"
     local is_setup_folder_structure="false"
     local is_run_homebrew="false"
-    local is_curl_at_urls="false"
-    local is_clone_repos="false"
     local is_setup_shell="false"
     local is_set_defaults="false"
     local is_do_all="false"
     
-    while getopts ":hfbursdz" opt; do
+    while getopts ":hfbsdz" opt; do
       case "${opt}" in
         h ) usage
             ;;
         f ) is_setup_folder_structure="true"
             ;;
         b ) is_run_homebrew="true"
-            ;;
-        u ) is_curl_at_urls="true"
-            ;;
-        r ) is_clone_repos="true"
             ;;
         s ) is_setup_shell="true"
             ;;
@@ -126,8 +127,6 @@ function read_parameters(){
     
     readonly IS_SETUP_FOLDER_STRUCTURE="$is_setup_folder_structure"
     readonly IS_RUN_HOMEBREW="$is_run_homebrew"
-    readonly IS_CURL_AT_URLS="$is_curl_at_urls"
-    readonly IS_CLONE_REPOS="$is_clone_repos"
     readonly IS_SETUP_SHELL="$is_setup_shell"
     readonly IS_SET_DEFAULTS="$is_set_defaults"
 }
@@ -256,53 +255,58 @@ function install_dracula::alfred(){
 
 function install_dracula::iterm(){
     log_func "${FUNCNAME[0]}"
-    # https://draculatheme.com/iterm/
-    # local -r themes_dir="$1"
+    create_macos_popup "adding dracula theme to iterm2
+    manually enable it at iterm > preferences > profiles > color tabs"
 
-    # (   cd $themes_dir"/iterm"
-    #     open "Dracula.itermcolors"
-    # )
+    (   cd $themes_dir"/iterm" || return
+        open "Dracula.itermcolors"
+    )
 }
 
-function install_dracula::slack(){
-    log_func "${FUNCNAME[0]}"
-    # https://draculatheme.com/slack/
-    # local -r themes_dir="$1"
+# function install_dracula::slack(){
+#     log_func "${FUNCNAME[0]}"
+#     create_macos_popup "install dracula theme for slack manually"
+#     # https://draculatheme.com/slack/
+#     local -r themes_dir="$1"
+#
+#     (   cd $themes_dir"/slack"
+#         open "Dracula.alfredappearance"
+#     )
+# }
 
-    # (   cd $themes_dir"/slack"
-    #     open "Dracula.alfredappearance"
-    # )
-}
-
-function install_dracula::sublime(){
-    log_func "${FUNCNAME[0]}"
-    # https://draculatheme.com/sublime/
-    # local -r themes_dir="$1"
-
-    # (   cd $themes_dir"/sublime"
-    #     open "Dracula.tmTheme"
-    # )
-}
+# function install_dracula::sublime(){
+#     log_func "${FUNCNAME[0]}"
+#     create_macos_popup "install dracula theme for sublime text manually"
+#     # https://draculatheme.com/sublime/
+#     local -r themes_dir="$1"
+#
+#     (   cd $themes_dir"/sublime"
+#         open "Dracula.tmTheme"
+#     )
+# }
 
 function install_dracula::textmate(){
     log_func "${FUNCNAME[0]}"
     # https://draculatheme.com/textmate/
     local -r themes_dir="$1"
+    
+    create_macos_popup "install dracula theme for textmate: please complete the popups"
 
     (   cd "$themes_dir/textmate" || return
         open "Dracula.tmTheme"
     )
 }
 
-function install_dracula::textual(){
-    log_func "${FUNCNAME[0]}"
-    # https://draculatheme.com/textual/
-    # local -r themes_dir="$1"
-
-    # (   cd $themes_dir"/textual"
-    #     open "Dracula.alfredappearance"
-    # )
-}
+# function install_dracula::textual(){
+#     log_func "${FUNCNAME[0]}"
+#     create_macos_popup "install dracula theme for textual manually"
+#     # https://draculatheme.com/textual/
+#     local -r themes_dir="$1"
+#
+#     (   cd $themes_dir"/textual"
+#         open "Dracula.alfredappearance"
+#     )
+# }
 
 function install_dracula::zsh(){
     log_func "${FUNCNAME[0]}"
@@ -329,7 +333,7 @@ function install_dracula(){
     local -r themes_dir="./support/resources/themes/dracula"
     
     install_dracula::alfred "$themes_dir"
-    # install_dracula::iterm $themes_dir
+    install_dracula::iterm "$themes_dir"
     # install_dracula::slack $themes_dir
     # install_dracula::sublime $themes_dir
     install_dracula::textmate "$themes_dir"
@@ -347,17 +351,21 @@ function install_dracula(){
 #######################################################################################################
 #######################################################################################################
 
-function arq::retrieve_restore_binary(){
-    log_func "${FUNCNAME[0]}"
-    (   cd "$HOME/Downloads" || return
-        wget "https://arqbackup.github.io/arq_restore/arq_restore.zip"
-    )
-}
-
-function arq::restore_from_backup(){
-    log_func "${FUNCNAME[0]}"
-#   
-}
+# function arq::retrieve_restore_binary(){
+#     log_func "${FUNCNAME[0]}"
+#     (   cd "$HOME/Downloads" || return
+#         local -r zip_name="arq_restore.zip"
+#         wget "https://arqbackup.github.io/arq_restore/$zip_name"
+#         open "$zip_name"
+#
+#
+#     )
+# }
+#
+# function arq::restore_from_backup(){
+#     log_func "${FUNCNAME[0]}"
+# #
+# }
 
 
 
@@ -382,13 +390,13 @@ function main(){
         install_apps_in_brewfile
     fi
     
-    if [[ "$IS_CURL_AT_URLS" == "true" ]]; then
-        curl_from_url
-    fi
+    # if [[ "$IS_CURL_AT_URLS" == "true" ]]; then
+    #     curl_from_url
+    # fi
     
-    if [[ "$IS_CLONE_REPOS" == "true" ]]; then 
-        clone_repos
-    fi
+    # if [[ "$IS_CLONE_REPOS" == "true" ]]; then
+    #     clone_repos
+    # fi
 
     if [[ "$IS_SETUP_SHELL" == "true" ]]; then
         set_zsh_as_default_shell
