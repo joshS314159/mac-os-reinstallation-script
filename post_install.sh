@@ -12,7 +12,7 @@ set -o pipefail; #exit script if anything fails in pipe
 declare -r ARGS="$@"
 declare -r PROGRAM="$0"
 
-# declare -r APPLE_SCRIPTS="./support/scripts/apple_scripts/"
+declare -r APPLE_SCRIPTS="./support/scripts/apple_scripts/"
 declare -r BASH_SCRIPTS="./support/scripts/bash/"
 
 
@@ -257,6 +257,8 @@ function install_dracula::iterm(){
     log_func "${FUNCNAME[0]}"
     create_macos_popup "adding dracula theme to iterm2
     manually enable it at iterm > preferences > profiles > color tabs"
+    
+    local -r themes_dir="$1"
 
     (   cd $themes_dir"/iterm" || return
         open "Dracula.itermcolors"
@@ -274,16 +276,18 @@ function install_dracula::iterm(){
 #     )
 # }
 
-# function install_dracula::sublime(){
-#     log_func "${FUNCNAME[0]}"
-#     create_macos_popup "install dracula theme for sublime text manually"
-#     # https://draculatheme.com/sublime/
-#     local -r themes_dir="$1"
-#
-#     (   cd $themes_dir"/sublime"
-#         open "Dracula.tmTheme"
-#     )
-# }
+function install_dracula::sublime(){
+    log_func "${FUNCNAME[0]}"
+    # create_macos_popup "install dracula theme for sublime text manually"
+    # https://draculatheme.com/sublime/
+    local -r themes_dir="$1"
+
+    local -r theme_file="$themes_dir/$/sublime/Dracula.tmTheme"
+    local -r packages_dir="$HOME/Library/Application Support/Sublime Text 3/Packages"
+
+    cp "$theme_file" "$packages_dir"
+}
+
 
 function install_dracula::textmate(){
     log_func "${FUNCNAME[0]}"
@@ -297,20 +301,37 @@ function install_dracula::textmate(){
     )
 }
 
-# function install_dracula::textual(){
-#     log_func "${FUNCNAME[0]}"
-#     create_macos_popup "install dracula theme for textual manually"
-#     # https://draculatheme.com/textual/
-#     local -r themes_dir="$1"
-#
-#     (   cd $themes_dir"/textual"
-#         open "Dracula.alfredappearance"
-#     )
-# }
+
+function get_textual_addons_path(){
+    log_func "${FUNCNAME[0]}"
+    
+    create_macos_popup "running keyboard maestro script, do **NOT** touch the keyboard or mouse for this part"
+    (   cd "$APPLE_SCRIPTS" || return
+        osascript "get_textual_addons_path_in_clipboard.scpt"
+    )
+    echo $(pbpaste)
+}
+
+
+function install_dracula::textual(){
+    log_func "${FUNCNAME[0]}"
+    
+    # https://draculatheme.com/textual/
+
+    local -r theme_dir="$1"
+    local -r addons_path=$(get_textual_addons_path)
+    
+    cp -r "$theme_dir/textual" "$addons_path/Styles/dracula"
+    
+    create_macos_popup "dracula installed for textual\nplease select the theme from the UI"
+}
+
 
 function install_dracula::zsh(){
     log_func "${FUNCNAME[0]}"
+    
     # https://draculatheme.com/zsh/
+    
     local -r themes_dir="$1"
     local -r dracula_theme="$themes_dir/zsh/dracula.zsh-theme" 
     local -r oh_my_zsh="$HOME/.oh-my-zsh/themes"
@@ -335,9 +356,9 @@ function install_dracula(){
     install_dracula::alfred "$themes_dir"
     install_dracula::iterm "$themes_dir"
     # install_dracula::slack $themes_dir
-    # install_dracula::sublime $themes_dir
+    install_dracula::sublime "$themes_dir"
     install_dracula::textmate "$themes_dir"
-    # install_dracula::textual $themes_dir
+    install_dracula::textual "$themes_dir"
     install_dracula::zsh "$themes_dir"
     
      
@@ -389,14 +410,6 @@ function main(){
         install_homebrew
         install_apps_in_brewfile
     fi
-    
-    # if [[ "$IS_CURL_AT_URLS" == "true" ]]; then
-    #     curl_from_url
-    # fi
-    
-    # if [[ "$IS_CLONE_REPOS" == "true" ]]; then
-    #     clone_repos
-    # fi
 
     if [[ "$IS_SETUP_SHELL" == "true" ]]; then
         set_zsh_as_default_shell
