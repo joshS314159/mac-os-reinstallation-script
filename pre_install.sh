@@ -117,15 +117,25 @@ function usage(){
 }
 
 
-
 #######################################################################################################
 #######################################################################################################
 # helper functions ####################################################################################
 #######################################################################################################
 #######################################################################################################
+
 function create_macos_popup(){
+    log_func "${FUNCNAME[0]}"
+    
     local -r message="$1"
     osascript -e "tell app \"System Events\" to display dialog \"$message\""
+}
+
+
+function authenticate_sudo(){
+    log_func "${FUNCNAME[0]}"
+    
+    # Ask for the administrator password upfront.
+    sudo --validate
 }
 
 
@@ -201,6 +211,8 @@ function backup_arq(){
 function main(){
     log_func "${FUNCNAME[0]}"
     read_parameters $ARGS
+    
+    authenticate_sudo
     
     if [[ "$IS_DUMP_HOMEBREW" == "true" ]]; then
         dump_homebrew

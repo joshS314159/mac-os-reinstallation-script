@@ -57,10 +57,18 @@ function usage(){
 #######################################################################################################
 #######################################################################################################
 function create_macos_popup(){
+    log_func "${FUNCNAME[0]}"
+    
     local -r message="$1"
     osascript -e "tell app \"System Events\" to display dialog \"$message\""
 }
 
+
+function authenticate_sudo(){
+    log_func "${FUNCNAME[0]}"
+    # Ask for the administrator password upfront.
+    sudo --validate
+}
 
 
 #######################################################################################################
@@ -177,7 +185,18 @@ function homebrew::install(){
 
 function homebrew::install_brewfile(){
     log_func "${FUNCNAME[0]}"
-    brew bundle
+    
+    local -r dump_location="./support/resources/brew/Brewfile"
+    
+    brew bundle --file="$Brewfile"
+}
+
+
+function homebrew::configure_the_fuck(){
+    log_func "${FUNCNAME[0]}"
+    # call 'fuck' twice to auto-add it to profile
+    fuck
+    fuck
 }
 
 
@@ -282,7 +301,7 @@ function install_dracula::sublime(){
     # https://draculatheme.com/sublime/
     local -r themes_dir="$1"
 
-    local -r theme_file="$themes_dir/$/sublime/Dracula.tmTheme"
+    local -r theme_file="$themes_dir/sublime/Dracula.tmTheme"
     local -r packages_dir="$HOME/Library/Application Support/Sublime Text 3/Packages"
 
     cp "$theme_file" "$packages_dir"
@@ -365,6 +384,32 @@ function install_dracula(){
 }
 
 
+function install_iterm_shell_integration(){
+    local -r url="https://iterm2.com/misc/install_shell_integration.sh"
+    curl -L "$url" | bash
+}
+
+
+
+
+
+#######################################################################################################
+#######################################################################################################
+# other ###############################################################################################
+#######################################################################################################
+#######################################################################################################
+
+function restore_mackup(){
+    mackup restore
+}
+
+function pull_submodules(){
+    git submodule update --init --recursive
+}
+
+
+
+
 
 #######################################################################################################
 #######################################################################################################
@@ -402,6 +447,8 @@ function main(){
     log_func "${FUNCNAME[0]}"
     read_parameters $ARGS
     
+    authenticate_sudo
+    
     if [[ "$IS_SETUP_FOLDER_STRUCTURE" == "true" ]]; then
         setup_folder_structure
     fi
@@ -412,15 +459,17 @@ function main(){
     fi
 
     if [[ "$IS_SETUP_SHELL" == "true" ]]; then
-        set_zsh_as_default_shell
-        install_oh_my_zsh
-        set_zsh_dracula_theme
+        shell:set_zsh_default
+        shell::install_oh_my_zsh
+        install_iterm_shell_integration
     fi
     
     if [[ "$IS_SET_DEFAULTS" == "true" ]]; then
+        pull_submodules
         setup_hacker_defaults
-        clear_dock
-        add_desired_apps_to_dock
+        dock::clear
+        dock::add_apps
+        install_dracula
     fi
 
 }

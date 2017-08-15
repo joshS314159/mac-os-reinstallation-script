@@ -1,13 +1,14 @@
 #!/usr/bin/env bash
-set -e; # exit all shells if script fails
-set -u; # exit script if uninitialized variable is used
-set -o pipefail; #exit script if anything fails in pipe
+# set -e; # exit all shells if script fails
+# set -u; # exit script if uninitialized variable is used
+# set -o pipefail; #exit script if anything fails in pipe
 # set -x; #debug mode
 
 # uses different "macos for hackers" scripts to set my preferred defaults
 
 # ~/.macos — https://mths.be/macos
 
+declare -r PROGRAM="$0"
 
 function initialize(){
     log_func "${FUNCNAME[0]}"
