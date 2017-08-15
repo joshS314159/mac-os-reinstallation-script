@@ -454,14 +454,15 @@ function main(){
     fi
     
     if [[ "$IS_RUN_HOMEBREW" == "true" ]]; then
-        install_homebrew
-        install_apps_in_brewfile
+        homebrew::install
+        homebrew::install_brewfile
     fi
 
     if [[ "$IS_SETUP_SHELL" == "true" ]]; then
         shell:set_zsh_default
         shell::install_oh_my_zsh
         install_iterm_shell_integration
+        homebrew::configure_the_fuck
     fi
     
     if [[ "$IS_SET_DEFAULTS" == "true" ]]; then
