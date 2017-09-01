@@ -278,7 +278,7 @@ function homebrew::configure_the_fuck(){
     fuck
 }
 
-function homebrew::install_gnu_getop(){
+function homebrew::install_gnu_getopt(){
     log_func "${FUNCNAME[0]}"
     
     brew install gnu-getopt
@@ -571,17 +571,11 @@ function initialize(){
         homebrew::install
     fi
     
-    if [[ $(which brew ) ]]; then
-        echo "IN"
-    else
-        echo "not"
-    fi
-    
     if [[ $(brew list | grep "gnu-getopt") ]]; then
         log "gnu-getopts already installed"
     else
         log "installing gnu-getopt (required to parse long arguments)"
-        homebrew::install_gnu_get_opts
+        homebrew::install_gnu_getopt
     fi
         
     read_parameters $ARGS
