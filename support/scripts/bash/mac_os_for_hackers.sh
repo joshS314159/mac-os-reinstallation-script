@@ -240,7 +240,7 @@ function screen(){
     defaults write com.apple.screensaver askForPasswordDelay -int 0
 
     # Save screenshots to the desktop
-    readonly SCREENSHOTS_DIR="${HOME}/DevonThink/_Sync/Screenshots"
+    readonly SCREENSHOTS_DIR="$HOME/Documents/Screenshots"
     mkdir -p "$SCREENSHOTS_DIR"
     defaults write com.apple.screencapture location -string "$SCREENSHOTS_DIR"
 
@@ -1013,6 +1013,22 @@ function tweetbot(){
     # defaults write com.tapbots.TweetbotMac OpenURLsDirectly -bool true
 }
 
+
+###############################################################################
+# Textmate.app                                                               #
+###############################################################################
+function textmate(){
+    log_func "${FUNCNAME[0]}"
+    
+    defaults write com.macromates.TextMate fileBrowserStyle SourceList
+
+    defaults write com.macromates.TextMate showFavoritesInsteadOfUntitled true
+
+    defaults write com.macromates.TextMate hideStatusBar true
+
+    defaults write com.macromates.TextMate lineNumberScaleFactor 0.6
+}
+
 ###############################################################################
 # Spectacle.app                                                               #
 ###############################################################################
@@ -1071,6 +1087,7 @@ function kill_affected(){
         "Transmission" \
         "Tweetbot" \
         "Twitter" \
+        "Textmate" \
         "iCal"; do
         killall "${app}" &> /dev/null
     done
@@ -1107,6 +1124,7 @@ function main(){
     # opera
     # sizeup_app
     sublime_text
+    textmate
     # transmission
     # twitter
     # tweetbot

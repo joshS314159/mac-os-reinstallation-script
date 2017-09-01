@@ -1,73 +1,60 @@
 tap "caskroom/cask"
-# tap "caskroom/drivers"
-# tap "caskroom/versions"
-# tap "homebrew/bundle"
-# tap "homebrew/core"
-# tap "homebrew/services"
-# tap "neovim/neovim"
+tap "caskroom/drivers"
+tap "caskroom/versions"
+tap "d12frosted/emacs-plus"
+tap "homebrew/bundle"
+tap "homebrew/core"
+tap "homebrew/services"
 tap "ravenac95/sudolikeaboss"
 # brew "autoconf"
 # brew "automake"
-brew "dockutil"
 # brew "gettext"
-# brew "git"
-# brew "libffi"
-# brew "pcre"
-# brew "glib"
+brew "ccat"
+brew "dockutil"
+brew "git"
+brew "gnu-getopt"
 # brew "libtool"
-# brew "libtermkey"
 # brew "libvterm"
 brew "mackup"
 brew "mas"
 brew "neofetch"
-# brew "node"
-# brew "pkg-config"
-# brew "python"
-# brew "ruby"
 brew "shellcheck"
+brew "thefuck"
 brew "wget"
 brew "zsh"
 brew "ravenac95/sudolikeaboss/sudolikeaboss"
 cask "1password"
 cask "alfred"
 cask "appcleaner"
-# cask "arduino"
 cask "arq"
 cask "bartender"
 cask "bee"
 cask "bettertouchtool"
-# cask "cakebrew"
-cask "chocolat"
-# cask "choosy"
+cask "choosy"
 cask "chromium"
 cask "cocoarestclient"
 cask "coderunner"
-cask "cryptomator"
-cask "cyberduck"
 cask "dash"
 cask "devonthink-pro"
 cask "docker"
 cask "firefox"
-# cask "fluid"
+cask "fluid"
 cask "gitup"
 cask "hazel"
-cask "imageoptim"
+cask "hocus-focus"
+# cask "imageoptim"
 cask "iterm2"
 cask "kaleidoscope"
+cask "karabiner-elements"
 cask "kextviewr"
-# cask "launchbar"
 cask "little-snitch"
-cask "logitech-control-center"
 cask "macdown"
-cask "majic"
 cask "micro-snitch"
-cask "mplayerx"
+# cask "mplayerx"
 cask "nvalt"
-cask "onyx"
-cask "pdfpen"
-cask "scansnap-manager-s1300"
+# cask "pdfpen"
+# cask "scansnap-manager-s1300"
 # cask "subler"
-# cask "sublime-text"
 cask "taskexplorer"
 cask "textmate"
 cask "torbrowser"
@@ -78,11 +65,12 @@ cask "virtualbox"
 cask "viscosity"
 cask "zoomus"
 mas "1Blocker", id: 1107421413
+mas "Amphetamine", id: 937984704
 mas "Deliveries", id: 924726344
 # mas "GarageBand", id: 682658836
+mas "GIPHY CAPTURE", id: 668208984
 mas "Haskell", id: 841285201
-mas "Home Inventory", id: 413564952
-# mas "Install macOS Sierra", id: 1127487414
+# mas "Home Inventory", id: 413564952
 mas "Keynote", id: 409183694
 mas "Numbers", id: 409203825
 mas "Pages", id: 409201541
@@ -90,8 +78,6 @@ mas "Pages", id: 409201541
 mas "Patterns", id: 429449079
 mas "Pixelmator", id: 407963104
 mas "Reeder", id: 880001334
-mas "Textual", id: 896450579
+mas "Textual 7", id: 1262957439
 mas "The Unarchiver", id: 425424353
 mas "Wunderlist", id: 410628904
-mas "Amphetamine", id: 937984704
-
