@@ -240,7 +240,7 @@ function screen(){
     defaults write com.apple.screensaver askForPasswordDelay -int 0
 
     # Save screenshots to the desktop
-    readonly SCREENSHOTS_DIR="${HOME}/DevonThink/_Sync/Screenshots"
+    readonly SCREENSHOTS_DIR="$HOME/Documents/Screenshots"
     mkdir -p "$SCREENSHOTS_DIR"
     defaults write com.apple.screencapture location -string "$SCREENSHOTS_DIR"
 

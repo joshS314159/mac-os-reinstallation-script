@@ -6,15 +6,15 @@ tap "homebrew/bundle"
 tap "homebrew/core"
 tap "homebrew/services"
 tap "ravenac95/sudolikeaboss"
-brew "autoconf"
-brew "automake"
-brew "gettext"
+# brew "autoconf"
+# brew "automake"
+# brew "gettext"
 brew "ccat"
 brew "dockutil"
 brew "git"
 brew "gnu-getopt"
-brew "libtool"
-brew "libvterm"
+# brew "libtool"
+# brew "libvterm"
 brew "mackup"
 brew "mas"
 brew "neofetch"
@@ -28,16 +28,16 @@ cask "alfred"
 cask "appcleaner"
 cask "arq"
 cask "bartender"
-cask "bee"
+# cask "bee"
 cask "bettertouchtool"
-cask "choosy"
-cask "chromium"
+# cask "choosy"
+# cask "chromium"
 cask "cocoarestclient"
 cask "coderunner"
 cask "dash"
 cask "devonthink-pro"
-cask "docker"
-cask "firefox"
+# cask "docker"
+# cask "firefox"
 cask "fluid"
 cask "gitup"
 cask "hazel"
@@ -57,24 +57,24 @@ cask "scansnap-manager-s1300"
 cask "subler"
 cask "taskexplorer"
 cask "textmate"
-cask "torbrowser"
+# cask "torbrowser"
 cask "tower"
 cask "transmission"
-cask "vagrant"
-cask "virtualbox"
+# cask "vagrant"
+# cask "virtualbox"
 cask "viscosity"
-cask "zoomus"
+# cask "zoomus"
 mas "1Blocker", id: 1107421413
 mas "Amphetamine", id: 937984704
 mas "Deliveries", id: 924726344
-mas "GarageBand", id: 682658836
-mas "GIPHY CAPTURE", id: 668208984
+# mas "GarageBand", id: 682658836
+# mas "GIPHY CAPTURE", id: 668208984
 mas "Haskell", id: 841285201
 mas "Home Inventory", id: 413564952
 mas "Keynote", id: 409183694
 mas "Numbers", id: 409203825
 mas "Pages", id: 409201541
-mas "Parallels Desktop Lite", id: 1085114709
+# mas "Parallels Desktop Lite", id: 1085114709
 mas "Patterns", id: 429449079
 mas "Pixelmator", id: 407963104
 mas "Reeder", id: 880001334

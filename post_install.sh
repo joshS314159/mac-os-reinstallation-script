@@ -26,24 +26,29 @@ declare -r BASH_SCRIPTS="./support/scripts/bash/"
 # http://docopt.org ###################################################################################
 #######################################################################################################
 #######################################################################################################
+  
 function usage(){
     log_func "${FUNCNAME[0]}"
+    
     echo "
     -----------------------------------------------------------------------------------------------------
-     Usage: $PROGRAM ( [-fbsd] | -z | -h )
+     Usage: $PROGRAM 
+            [ --make-dirs (--run-homebrew [--work | --home ])  --setup-shell --set-defaults ] | --help
      
-            -h        HELP: displays this usage page
+            --help                HELP: displays this usage page
     
-            -f        set up default folder structure
+            --make-dirs           set up default folder structure
     
-            -b        install home brew and install apps from dump file
+            --setup-shell         setup shell (oh-my-zsh, themes, etc.)
     
-            -s        setup shell (oh-my-zsh, themes, etc.)
-    
-            -d        set system defaults (\"hacker\" scripts, dock init, etc.)
+            --set-defaults        set system defaults (\"hacker\" scripts, dock init, etc.)
             
-            -z        enable all flags (except -h/help) for this program
+            --run-homebrew        install home brew and install apps from dump file
             
+            --work                use Brewfile.development to install applications (for work computer)
+            
+            --home                use Brewfile.home to install applications (for home computer)
+                        
      
      Need more info on this documentation? Visit http://docopt.org
     
@@ -82,6 +87,11 @@ function log(){
     echo "$PROGRAM ======================> LOG: $msg"
 }
 
+function error_log(){
+    local -r msg="$1"
+    log "ERROR: $msg"
+}
+
 function log_func(){
     local -r function_name="$1"
     log "function - $function_name"
@@ -97,47 +107,105 @@ function log_func(){
 #######################################################################################################
 function read_parameters(){
     log_func "${FUNCNAME[0]}"
+    
     local is_dump_homebrew="false"
     local is_setup_folder_structure="false"
     local is_run_homebrew="false"
     local is_setup_shell="false"
     local is_set_defaults="false"
-    local is_do_all="false"
+    local is_help="false"
+    local is_brew_work="false"
+    local is_brew_home="false"
     
-    while getopts ":hfbsdz" opt; do
-      case "${opt}" in
-        h ) usage
-            ;;
-        f ) is_setup_folder_structure="true"
-            ;;
-        b ) is_run_homebrew="true"
-            ;;
-        s ) is_setup_shell="true"
-            ;;
-        d ) is_set_defaults="true"
-            ;;
-        z ) is_do_all="true"
-            ;;
-        \? ) usage
-            ;;
-      esac
-    done
     
-    if [[ "$is_do_all" == "true" ]]; then 
-        is_setup_folder_structure="true"
-        is_run_homebrew="true"
-        is_curl_at_urls="true"
-        is_clone_repos="true"
-        is_setup_shell="true"
-        is_set_defaults="true"
-    fi
+    
+    local OPTS=$(getopt -o dish --long ,make-dirs,run-homebrew,setup-shell,set-defaults,work,home,help -- "$@");
+    eval set -- "$OPTS";
+    while true ; do
+        case "$1" in
+            --make-dirs) 
+                is_setup_folder_structure="true"
+                shift 1;
+                ;;
+            --run-homebrew)
+                is_run_homebrew="true"
+                shift 1;
+                ;;
+            --setup-shell)
+                is_setup_shell="true"
+                shift 1;
+                ;;
+            --set-defaults)
+                is_set_defaults="true"
+                shift 1;
+                ;;
+            --work)
+                is_brew_work="true"
+                shift 1;
+                ;;
+            --home)
+                is_brew_home="true"
+                shift 1;
+                ;;
+            --help)
+                is_help="true"
+                shift 1;
+                ;;
+            *)
+                break;
+                ;;
+        esac
+    done;
     
     
     readonly IS_SETUP_FOLDER_STRUCTURE="$is_setup_folder_structure"
     readonly IS_RUN_HOMEBREW="$is_run_homebrew"
     readonly IS_SETUP_SHELL="$is_setup_shell"
     readonly IS_SET_DEFAULTS="$is_set_defaults"
+    readonly IS_HELP="$is_help"
+    readonly IS_BREW_WORK="$is_brew_work"
+    readonly IS_BREW_HOME="$is_brew_home"
 }
+
+
+function bad_input_handler(){
+    local -r message="$1"
+
+    error_log "$message"
+    error_log "exiting this script!"
+    usage
+    exit 1
+}
+
+
+function validate_input(){
+    if [[ "$IS_RUN_HOMEBREW" == "true" ]]; then
+        if [[ "$IS_BREW_WORK" == "true" && "$IS_BREW_HOME" == "true" ]]; then
+            bad_input_handler "cannot use --work and --home together"
+        fi
+            
+        if [[ "$IS_BREW_WORK" == "false" && "$IS_BREW_HOME" == "false" ]]; then
+            bad_input_handler "must give --work **OR** --home "
+        fi
+    fi
+    
+    
+    if [[ "$IS_RUN_HOMEBREW" == "false" && ("$IS_BREW_WORK" == "true" || "$IS_BREW_HOME" == "true")  ]]; then
+        bad_input_handler "cannot use --work or --home without --run-homebrew"
+    fi
+        
+    if [[ "$IS_RUN_HOMEBREW" == "true" ]]; then
+        if [[ "$IS_BREW_WORK" == "true" && "$IS_BREW_HOME" == "true" ]]; then
+            bad_input_handler "cannot use --work and --home together"
+        fi
+         
+         if [[ "$IS_BREW_WORK" == "false" && "$IS_BREW_HOME" == "false" ]]; then
+            bad_input_handler "must give --work **OR** --home "
+        fi
+    fi
+}
+
+
 
 
 
@@ -148,18 +216,29 @@ function read_parameters(){
 #######################################################################################################
 function setup_folder_structure(){
     log_func "${FUNCNAME[0]}"
-    mkdir -p "$HOME/Documents/Developer"
     
-    mkdir -p "$HOME/Documents/Developer/Repositories/"
-    mkdir -p "$HOME/Documents/Developer/Virtual Machines/"
-    mkdir -p "$HOME/Documents/Developer/Working/"
-
-    mkdir -p "$HOME/Documents/DevonThink"
+    local -r documents="$HOME/Documents"
     
-    mkdir -p "$HOME/Documents/1Password"
-    mkdir -p "$HOME/Documents/DevonThink"
-    mkdir -p "$HOME/Documents/nvAlt2"
-    mkdir -p "$HOME/Documents/ScanSnap Processing"
+    mkdir -p "$documents/App_Data/1Password"
+    mkdir -p "$documents/App_Data/Alfred"
+    mkdir -p "$documents/App_Data/Hazel"
+    mkdir -p "$documents/App_Data/Home Inventory"
+    mkdir -p "$documents/App_Data/Little Snitch"
+    mkdir -p "$documents/App_Data/Mackup"
+    mkdir -p "$documents/App_Data/nvAlt2"
+    
+    mkdir -p "$documents/Developer/Repositories/"
+    mkdir -p "$documents/Developer/Virtual Machines/Images"
+    mkdir -p "$documents/Developer/Virtual Machines/Parallels"
+    mkdir -p "$documents/Developer/Virtual Machines/Veertu"
+    mkdir -p "$documents/Developer/Virtual Machines/VirtualBox"
+    mkdir -p "$documents/Developer/Working/"
+    
+    mkdir -p "$documents/DevonThink"
+    
+    mkdir -p "$documents/Processing"
+    
+    mkdir -p "$documents/Screenshots"
 }
 
 
@@ -186,9 +265,9 @@ function homebrew::install(){
 function homebrew::install_brewfile(){
     log_func "${FUNCNAME[0]}"
     
-    local -r dump_location="./support/resources/brew/Brewfile"
-    
-    brew bundle --file="$Brewfile"
+    local -r brewfile_path="$1"
+        
+    brew bundle --file="$brewfile_path"
 }
 
 
@@ -199,6 +278,20 @@ function homebrew::configure_the_fuck(){
     fuck
 }
 
+function homebrew::install_gnu_getop(){
+    log_func "${FUNCNAME[0]}"
+    
+    brew install gnu-getopt
+}
+
+function main_homebrew(){
+    log_func "${FUNCNAME[0]}"
+    
+    local -r brewfile_path="$1"
+    
+    homebrew::install
+    homebrew::install_brewfile "$brewfile_path"
+}
 
 
 #######################################################################################################
@@ -384,11 +477,22 @@ function install_dracula(){
 }
 
 
-function install_iterm_shell_integration(){
+function shell::iterm_integration(){
+    log_func "${FUNCNAME[0]}"
+    
     local -r url="https://iterm2.com/misc/install_shell_integration.sh"
     curl -L "$url" | bash
 }
 
+
+function main_shell(){
+    log_func "${FUNCNAME[0]}"
+    
+    shell:set_zsh_default
+    shell::install_oh_my_zsh
+    shell::iterm_integration
+    homebrew::configure_the_fuck
+}
 
 
 
@@ -400,15 +504,27 @@ function install_iterm_shell_integration(){
 #######################################################################################################
 
 function restore_mackup(){
+    log_func "${FUNCNAME[0]}"
+    
     mackup restore
 }
 
 function pull_submodules(){
+    log_func "${FUNCNAME[0]}"
+    
     git submodule update --init --recursive
 }
 
 
-
+function main_defaults(){
+    log_func "${FUNCNAME[0]}"
+    
+    pull_submodules
+    setup_hacker_defaults
+    dock::clear
+    dock::add_apps
+    install_dracula
+}
 
 
 #######################################################################################################
@@ -439,38 +555,69 @@ function pull_submodules(){
 
 #######################################################################################################
 #######################################################################################################
-# main ################################################################################################
+# main and init #######################################################################################
 #######################################################################################################
 #######################################################################################################
-
-function main(){
+function initialize(){
     log_func "${FUNCNAME[0]}"
-    read_parameters $ARGS
     
     authenticate_sudo
     
+    # need gnu-getopts to parse the long arguments
+    if [[ $(which brew | grep "not") ]]; then
+        log "installing homebrew (required to parse long arguments)"
+        homebrew::install
+    else
+        log "homebrew already installed"
+    fi
+    
+    if [[ $(brew list | grep "gnu-getopt") ]]; then
+        log "gnu-getopts already installed"
+    else
+        log "installing gnu-getopt (required to parse long arguments)"
+        homebrew::install_gnu_get_opts
+    fi
+        
+    read_parameters $ARGS
+    
+    validate_input
+    
+    exit
+    if [[ "$IS_HELP" == "true" ]]; then
+        usage
+        exit 0
+    fi
+}
+
+
+function main(){
+    log_func "${FUNCNAME[0]}"
+    
+    initialize
+    
     if [[ "$IS_SETUP_FOLDER_STRUCTURE" == "true" ]]; then
+        log "setup folder structure"
         setup_folder_structure
     fi
     
-    if [[ "$IS_RUN_HOMEBREW" == "true" ]]; then
-        homebrew::install
-        homebrew::install_brewfile
+    if [[ "$IS_RUN_HOMEBREW" == "true" && "$IS_WORK" == "true" ]]; then
+        log "run homebrew / install applications"
+        main_homebrew "./support/resources/brew/Brewfile.work"
+    fi
+    
+    if [[ "$IS_RUN_HOMEBREW" == "true" && "$IS_HOME" == "true" ]]; then
+        log "run homebrew / install applications"
+        main_homebrew "./support/resources/brew/Brewfile.home"
     fi
 
     if [[ "$IS_SETUP_SHELL" == "true" ]]; then
-        shell:set_zsh_default
-        shell::install_oh_my_zsh
-        install_iterm_shell_integration
-        homebrew::configure_the_fuck
+        log "setup shell (zsh, etc.)"
+        main_shell
     fi
     
     if [[ "$IS_SET_DEFAULTS" == "true" ]]; then
-        pull_submodules
-        setup_hacker_defaults
-        dock::clear
-        dock::add_apps
-        install_dracula
+        log "set system defaults"
+        main_defaults
     fi
 
 }
