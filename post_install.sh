@@ -582,7 +582,6 @@ function initialize(){
     
     validate_input
     
-    exit
     if [[ "$IS_HELP" == "true" ]]; then
         usage
         exit 0
