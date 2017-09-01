@@ -169,6 +169,8 @@ function read_parameters(){
 
 
 function bad_input_handler(){
+    log_func "${FUNCNAME[0]}"
+    
     local -r message="$1"
 
     error_log "$message"
@@ -179,6 +181,8 @@ function bad_input_handler(){
 
 
 function validate_input(){
+    log_func "${FUNCNAME[0]}"
+     
     if [[ "$IS_RUN_HOMEBREW" == "true" ]]; then
         if [[ "$IS_BREW_WORK" == "true" && "$IS_BREW_HOME" == "true" ]]; then
             bad_input_handler "cannot use --work and --home together"
