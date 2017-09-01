@@ -564,7 +564,7 @@ function initialize(){
     authenticate_sudo
     
     # need gnu-getopts to parse the long arguments
-    if [[ $(which brew | grep "not") ]]; then
+    if [[ $(which brew ) ]]; then
         log "installing homebrew (required to parse long arguments)"
         homebrew::install
     else
