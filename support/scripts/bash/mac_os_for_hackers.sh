@@ -607,6 +607,9 @@ function mail(){
 
     # Disable automatic spell checking
     defaults write com.apple.mail SpellCheckingBehavior -string "NoSpellCheckingEnabled"
+    
+    # Show most recent messages on top of thread
+    defaults write com.apple.mail ConversationViewSortDescending 1    
 }
 
 
