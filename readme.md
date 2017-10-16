@@ -41,7 +41,7 @@
 # After Reinstallation
 
 1. `cd Downloads`
-2. `git clone https://github.com/joshS314159/mac-os-reinstallation-script.git`
+2. `git clone --recursive -j8 https://github.com/joshS314159/mac-os-reinstallation-script.git`
 3. Make your decisions based on `bash ./mac-os-reinstallation-script/post_install.sh --help` and run
 4. Log into Dropbox
 
