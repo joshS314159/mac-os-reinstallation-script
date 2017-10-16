@@ -5,7 +5,6 @@
 * [Mackup](https://github.com/lra/mackup)
 
 
-
 # Before Reinstallation
 1. Run ```bash pre_install.sh --dump-homebrew ----backup-mackup --run-arq ----update-devonthink` in `mac-os-reinstallation-script```
 2. Manually run sync'ing
@@ -26,6 +25,9 @@
 * Documents: in Devonthink, sync'd with Dropbox
 
 * Preferences/dotfiles: [Mackup](https://github.com/lra/mackup)
+
+* Non-config file (system) preferences: `<repo>/support/scripts/bash/mac_os_for_hackers.sh`
+    *  There are tons of these around the web. For more config support/ideas/etc., Google "mac os for hackers"
 
 * Passwords: [1Password (standalone)](https://1password.com) via Dropbox
 
