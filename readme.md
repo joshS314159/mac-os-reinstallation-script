@@ -3,6 +3,7 @@
 * macOS
 * [gnu-getopt](http://brewformulas.org/Gnu-getopt)
 * [Mackup](https://github.com/lra/mackup)
+* Homebrew
 
 
 # Before Reinstallation
