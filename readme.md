@@ -37,7 +37,7 @@
 
 * Code: Github
 
-* $HOME: backed up with Arq to multiple locations (NAS, Google Drive, Dropbox, Backblaze)
+* Backups: $HOME with Arq to multiple locations (NAS, Google Drive, Dropbox, Backblaze)
 
 
 # After Reinstallation
