@@ -119,7 +119,7 @@ function read_parameters(){
     
     
     
-    local OPTS=$(getopt -o dish --long ,make-dirs,run-homebrew,setup-shell,set-defaults,work,home,help -- "$@");
+    local -r OPTS=$(getopt -o dish --long ,make-dirs,run-homebrew,setup-shell,set-defaults,work,home,help -- "$@");
     eval set -- "$OPTS";
     while true ; do
         case "$1" in

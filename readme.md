@@ -1,44 +1,49 @@
+# Requirements
+
+* macOS
+* [gnu-getopt](http://brewformulas.org/Gnu-getopt)
+* [Mackup](https://github.com/lra/mackup)
+
+
+
 # Before Reinstallation
-1. Run `bash pre_install.sh -z` in `mac-os-reinstallation-script`
-2. <s>Index applicable folders on DevonThink</s>
-2. Run sync'ing
+1. Run ```bash pre_install.sh --dump-homebrew ----backup-mackup --run-arq ----update-devonthink` in `mac-os-reinstallation-script```
+2. Manually run sync'ing
     * 1Password
-    * <s>DevonThink</s>
     * Hazel
-3. Preference backup
-    * <s>Run mackup (should handle everything) but...</s>
-    * <s>Little Snitch</s>
-    * <s>BetterTouchTool</s>
     * Alfred
-    * <s>Hazel (should auto-sync, double check this is done)</s>
-4. <s>Run Arq backups (to local and remote)</s>
+3. Manual preference backup
+    * Little Snitch
+    * BetterTouchTool
+4. Verify Arq backups are complete
 
 
 
-# What's what
+# What's where
 
 * Applications: Homebrew via Brewfile dump
 
-* Documents: sync'd with Devonthink, backed up with Arq
+* Documents: in Devonthink, sync'd with Dropbox
 
-* Preferences/dotfiles: Mackup
+* Preferences/dotfiles: [Mackup](https://github.com/lra/mackup)
 
-* Passwords: 1Password
+* Passwords: [1Password (standalone)](https://1password.com) via Dropbox
 
-* Photos: iCloud
+* Photos: iCloud/Photos.app
 
 * Music: iTunes Match / Apple Music
 
 * Code: Github
 
-* $HOME: backed up with Arq
+* $HOME: backed up with Arq to multiple locations (NAS, Google Drive, Dropbox, Backblaze)
 
 
 # After Reinstallation
 
 1. `cd Downloads`
 2. `git clone https://github.com/joshS314159/mac-os-reinstallation-script.git`
-3. `bash ./mac-os-reinstallation-script/post_install.sh -z`
+3. Make your decisions based on `bash ./mac-os-reinstallation-script/post_install.sh --help` and run
+4. Log into Dropbox
 
 
 # Todo
