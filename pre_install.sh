@@ -145,6 +145,13 @@ function dump_homebrew(){
 }
 
 
+function dump_macports(){
+    log_func "${FUNCNAME[0]}"
+    port installed requested > ./support/resources/macports/installed.dump
+
+}
+
+
 # run devonthink index and sync apple scripts #########################################################
 
 function index_and_sync_devonthink(){
