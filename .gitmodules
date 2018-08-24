@@ -19,3 +19,6 @@
 [submodule "support/resources/themes/dracula/slack"]
 	path = support/resources/themes/dracula/slack
 	url = https://github.com/dracula/slack.git
+[submodule "support/repositories/oh-my-zsh"]
+	path = support/repositories/oh-my-zsh
+	url = https://github.com/robbyrussell/oh-my-zsh.git
