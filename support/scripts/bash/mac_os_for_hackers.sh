@@ -7,6 +7,7 @@
 # uses different "macos for hackers" scripts to set my preferred defaults
 
 # ~/.macos — https://mths.be/macos
+# https://github.com/mathiasbynens/dotfiles/blob/master/.macos
 
 declare -r PROGRAM="$0"
 
@@ -63,11 +64,18 @@ function general_ui_ux(){
     # Set highlight color to green
     # defaults write NSGlobalDomain AppleHighlightColor -string "0.764700 0.976500 0.568600"
 
+    # Set highlight color to Graphite
+    defaults write NSGlobalDomain AppleHighlightColor -string "0.847059 0.847059 0.862745"
+
+    
     # Set sidebar icon size to medium
     # defaults write NSGlobalDomain NSTableViewDefaultSizeMode -int 2
 
+    # Set sidebar icon size to small
+    defaults write NSGlobalDomain NSTableViewDefaultSizeMode -int 1
+
     # Always show scrollbars
-    # defaults write NSGlobalDomain AppleShowScrollBars -string "Always"
+    # defaults write NSGlobalDomain AppleShowScrollBars -string "WhenScrolling"
     # Possible values: `WhenScrolling`, `Automatic` and `Always`
 
     # Disable the over-the-top focus ring animation
@@ -92,10 +100,10 @@ function general_ui_ux(){
     defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
 
     # Automatically quit printer app once the print jobs complete
-    # defaults write com.apple.print.PrintingPrefs "Quit When Finished" -bool true
+    defaults write com.apple.print.PrintingPrefs "Quit When Finished" -bool true
 
     # Disable the “Are you sure you want to open this application?” dialog
-    # defaults write com.apple.LaunchServices LSQuarantine -bool false
+    defaults write com.apple.LaunchServices LSQuarantine -bool false
 
     # Remove duplicates in the “Open With” menu (also see `lscleanup` alias)
     /System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user
@@ -111,7 +119,7 @@ function general_ui_ux(){
     # defaults write NSGlobalDomain NSDisableAutomaticTermination -bool true
 
     # Disable the crash reporter
-    # defaults write com.apple.CrashReporter DialogType -string "none"
+    defaults write com.apple.CrashReporter DialogType -string "none"
 
     # Set Help Viewer windows to non-floating mode
     defaults write com.apple.helpviewer DevMode -bool true
@@ -206,7 +214,7 @@ function general_input(){
     # defaults write com.apple.universalaccess closeViewZoomFollowsFocus -bool true
 
     # Disable press-and-hold for keys in favor of key repeat
-    # defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
+    defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
 
     # Set a blazingly fast keyboard repeat rate
     # defaults write NSGlobalDomain KeyRepeat -int 1
@@ -240,9 +248,9 @@ function screen(){
     defaults write com.apple.screensaver askForPasswordDelay -int 0
 
     # Save screenshots to the desktop
-    readonly SCREENSHOTS_DIR="$HOME/Documents/Screenshots"
-    mkdir -p "$SCREENSHOTS_DIR"
-    defaults write com.apple.screencapture location -string "$SCREENSHOTS_DIR"
+    local -r screenshots_dirpath="${HOME}/Documents/Screenshots"
+    mkdir -p "${screenshots_dirpath}"
+    defaults write com.apple.screencapture location -string "${screenshots_dirpath}"
 
     # Save screenshots in PNG format (other options: BMP, GIF, JPG, PDF, TIFF)
     defaults write com.apple.screencapture type -string "png"
@@ -372,8 +380,8 @@ function finder(){
     # sudo chflags nohidden /Volumes
 
     # Remove Dropbox’s green checkmark icons in Finder
-    # file=/Applications/Dropbox.app/Contents/Resources/emblem-dropbox-uptodate.icns
-    # [ -e "${file}" ] && mv -f "${file}" "${file}.bak"
+    local -r file=/Applications/Dropbox.app/Contents/Resources/emblem-dropbox-uptodate.icns
+    [ -e "${file}" ] && mv -f "${file}" "${file}.bak"
 
     # Expand the following File Info panes:
     # “General”, “Open with”, and “Sharing & Permissions”
@@ -569,10 +577,10 @@ function safari(){
     defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2JavaScriptCanOpenWindowsAutomatically -bool false
 
     # Disable auto-playing video
-    #defaults write com.apple.Safari WebKitMediaPlaybackAllowsInline -bool false
-    #defaults write com.apple.SafariTechnologyPreview WebKitMediaPlaybackAllowsInline -bool false
-    #defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2AllowsInlineMediaPlayback -bool false
-    #defaults write com.apple.SafariTechnologyPreview com.apple.Safari.ContentPageGroupIdentifier.WebKit2AllowsInlineMediaPlayback -bool false
+    defaults write com.apple.Safari WebKitMediaPlaybackAllowsInline -bool false
+    defaults write com.apple.SafariTechnologyPreview WebKitMediaPlaybackAllowsInline -bool false
+    defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2AllowsInlineMediaPlayback -bool false
+    defaults write com.apple.SafariTechnologyPreview com.apple.Safari.ContentPageGroupIdentifier.WebKit2AllowsInlineMediaPlayback -bool false
 
     # Enable “Do Not Track”
     defaults write com.apple.Safari SendDoNotTrackHTTPHeader -bool true
@@ -598,9 +606,9 @@ function mail(){
     # defaults write com.apple.mail NSUserKeyEquivalents -dict-add "Send" "@\U21a9"
 
     # Display emails in threaded mode, sorted by date (oldest at the top)
-    # defaults write com.apple.mail DraftsViewerAttributes -dict-add "DisplayInThreadedMode" -string "yes"
-    # defaults write com.apple.mail DraftsViewerAttributes -dict-add "SortedDescending" -string "yes"
-    # defaults write com.apple.mail DraftsViewerAttributes -dict-add "SortOrder" -string "received-date"
+    defaults write com.apple.mail DraftsViewerAttributes -dict-add "DisplayInThreadedMode" -string "yes"
+    defaults write com.apple.mail DraftsViewerAttributes -dict-add "SortedDescending" -string "yes"
+    defaults write com.apple.mail DraftsViewerAttributes -dict-add "SortOrder" -string "received-date"
 
     # Disable inline attachments (just show the icons)
     # defaults write com.apple.mail DisableInlineAttachmentViewing -bool true
@@ -733,10 +741,10 @@ function terminal_iterm(){
     # defaults write com.apple.Terminal ShowLineMarks -int 0
 
     # Install the Solarized Dark theme for iTerm
-    open "${HOME}/init/Solarized Dark.itermcolors"
+    #open "${HOME}/init/Solarized Dark.itermcolors"
 
     # Don’t display the annoying prompt when quitting iTerm
-    defaults write com.googlecode.iterm2 PromptOnQuit -bool false
+    #defaults write com.googlecode.iterm2 PromptOnQuit -bool false
 }
 ###############################################################################
 # Time Machine                                                                #
@@ -748,7 +756,7 @@ function time_machine(){
     defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true
 
     # Disable local Time Machine backups
-    # hash tmutil &> /dev/null && sudo tmutil disablelocal
+    hash tmutil &> /dev/null && sudo tmutil disablelocal
 }
 
 ###############################################################################
@@ -756,7 +764,6 @@ function time_machine(){
 ###############################################################################
 
 function activity_monitor(){
-    log_func "${FUNCNAME[0]}"
     log_func "${FUNCNAME[0]}"
     # Show the main window when launching Activity Monitor
     # defaults write com.apple.ActivityMonitor OpenMainWindow -bool true
@@ -778,13 +785,11 @@ function activity_monitor(){
 
 function address_book(){
     log_func "${FUNCNAME[0]}"
-    log_func "${FUNCNAME[0]}"
     # Enable the debug menu in Address Book
     # defaults write com.apple.addressbook ABShowDebugMenu -bool true
 }
 
 function dashboard(){
-    log_func "${FUNCNAME[0]}"
     log_func "${FUNCNAME[0]}"
     # Enable Dashboard dev mode (allows keeping widgets on the desktop)
     # defaults write com.apple.dashboard devmode -bool true
@@ -792,13 +797,11 @@ function dashboard(){
 
 function calendar(){
     log_func "${FUNCNAME[0]}"
-    log_func "${FUNCNAME[0]}"
     # Enable the debug menu in iCal (pre-10.8)
     # defaults write com.apple.iCal IncludeDebugMenu -bool true
 }
 
 function text_edit(){
-    log_func "${FUNCNAME[0]}"
     log_func "${FUNCNAME[0]}"
     # Use plain text mode for new TextEdit documents
     # defaults write com.apple.TextEdit RichText -int 0
@@ -1023,13 +1026,13 @@ function tweetbot(){
 function textmate(){
     log_func "${FUNCNAME[0]}"
     
-    defaults write com.macromates.TextMate fileBrowserStyle SourceList
+    #defaults write com.macromates.TextMate fileBrowserStyle SourceList
 
-    defaults write com.macromates.TextMate showFavoritesInsteadOfUntitled true
+    #defaults write com.macromates.TextMate showFavoritesInsteadOfUntitled true
 
-    defaults write com.macromates.TextMate hideStatusBar true
+    #defaults write com.macromates.TextMate hideStatusBar true
 
-    defaults write com.macromates.TextMate lineNumberScaleFactor 0.6
+    #defaults write com.macromates.TextMate lineNumberScaleFactor 0.6
 }
 
 ###############################################################################
@@ -1126,8 +1129,8 @@ function main(){
     # gpg_mail
     # opera
     # sizeup_app
-    sublime_text
-    textmate
+    #sublime_text
+    #textmate
     # transmission
     # twitter
     # tweetbot
