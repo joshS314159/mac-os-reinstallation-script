@@ -39,8 +39,8 @@
 ## @TODO
 * Sync safari with mackup
 * Prevent need to run `mackup restore` several times
-* # DONE, auto-installed: Install oh-my-tmux from web (https://github.com/gpakosz/.tmux)
-* # DONE, auto-installed: Install oh-my-zsh from web (https://github.com/robbyrussell/oh-my-zsh)
+* #DONE, auto-installed: Install oh-my-tmux from web (https://github.com/gpakosz/.tmux)
+* #DONE, auto-installed: Install oh-my-zsh from web (https://github.com/robbyrussell/oh-my-zsh)
 * #DONE, auto-installed, Restore ZSH Dracula theme
 * #DONE, auto-installed: Get vim plugins installed right (https://github.com/junegunn/vim-plug)
 
